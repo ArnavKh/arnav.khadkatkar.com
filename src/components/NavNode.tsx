@@ -1,47 +1,102 @@
+import { forwardRef } from "react";
 import { motion } from "framer-motion";
 
 interface NavNodeProps {
-  id: string;
-  title: string;
-  className?: string;
-  onClick?: () => void;
+     id: string;
+     title: string;
+     subtitle: string;
+     className?: string;
+     isActive?: boolean;
+     isDimmed?: boolean;
+     style?: React.CSSProperties;
+     onClick?: () => void;
+     onMouseEnter?: () => void;
+     onMouseLeave?: () => void;
+     floatDelay?: number;
 }
 
-export default function NavNode({
-  id,
-  title,
-  className,
-  onClick,
-}: NavNodeProps) {
-  return (
-    <motion.div
-      layoutId={id}
-      onClick={onClick}
-      whileHover={{
-        scale: 1.08,
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 250,
-        damping: 20,
-      }}
-      className={`
-        absolute
-        flex
-        items-center
-        justify-center
-        cursor-pointer
-        rounded-full
-        border
-        border-cyan-400/30
-        bg-slate-900/80
-        text-white
-        backdrop-blur-md
-        shadow-[0_0_40px_rgba(34,211,238,0.15)]
-        ${className}
-      `}
-    >
-      {title}
-    </motion.div>
-  );
-}
+const NavNode = forwardRef<HTMLDivElement, NavNodeProps>(
+     (
+          {
+               id,
+               title,
+               subtitle,
+               className,
+               isActive,
+               isDimmed,
+               onClick,
+               onMouseEnter,
+               onMouseLeave,
+               style,
+               floatDelay,
+          },
+          ref
+     ) => {
+          return (
+               <motion.div
+                    ref={ref}
+                    layoutId={id}
+                    onClick={onClick}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
+                    animate={{
+                         scale: isActive
+                              ? 1.06
+                              : [1, 1.02, 1],
+
+                         opacity: isDimmed ? 0.35 : 1,
+
+                         borderColor: isActive
+                              ? "rgba(139,92,246,0.65)"
+                              : [
+                                   "rgba(139,92,246,0.15)",
+                                   "rgba(139,92,246,0.45)",
+                                   "rgba(139,92,246,0.15)",
+                              ],
+
+                         boxShadow: isActive
+                              ? "0 0 60px rgba(139,92,246,0.35)"
+                              : [
+                                   "0 0 10px rgba(139,92,246,0.05)",
+                                   "0 0 30px rgba(139,92,246,0.18)",
+                                   "0 0 10px rgba(139,92,246,0.05)",
+                              ],
+                    }}
+                    transition={{
+                         scale: {
+                              duration: 4 + (floatDelay ?? 0),
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                         },
+                         borderColor: {
+                              duration: 4 + (floatDelay ?? 0),
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                         },
+                         boxShadow: {
+                              duration: 4 + (floatDelay ?? 0),
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                         },
+                         opacity: {
+                              duration: 0.2,
+                         },
+                    }}
+                    style={style}
+                    className={`absolute cursor-pointer rounded-2xl border border-violet-500/20 bg-[#0B1120]/80 backdrop-blur-md transition-all duration-300 hover:border-violet-400/40 ${className ?? ""}`}
+               >
+                    <div className="flex h-full flex-col justify-center p-4">
+                         <div className="text-base font-medium text-white">
+                              {title}
+                         </div>
+
+                         <div className="mt-1 text-xs text-slate-500">
+                              {subtitle}
+                         </div>
+                    </div>
+               </motion.div>
+          );
+     }
+);
+
+export default NavNode;
