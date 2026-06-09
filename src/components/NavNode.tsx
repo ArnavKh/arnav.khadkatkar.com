@@ -42,39 +42,48 @@ const NavNode = forwardRef<HTMLDivElement, NavNodeProps>(
                     animate={{
                          scale: isActive
                               ? 1.06
-                              : [1, 1.02, 1],
+                              : [1, 1.04, 1],
+
+                         y: isActive
+                              ? -2
+                              : [0, -3, 0],
 
                          opacity: isDimmed ? 0.35 : 1,
 
                          borderColor: isActive
-                              ? "rgba(139,92,246,0.65)"
+                              ? "rgba(139,92,246,0.7)"
                               : [
                                    "rgba(139,92,246,0.15)",
-                                   "rgba(139,92,246,0.45)",
+                                   "rgba(139,92,246,0.55)",
                                    "rgba(139,92,246,0.15)",
                               ],
 
                          boxShadow: isActive
-                              ? "0 0 60px rgba(139,92,246,0.35)"
+                              ? "0 0 70px rgba(139,92,246,0.45)"
                               : [
                                    "0 0 10px rgba(139,92,246,0.05)",
-                                   "0 0 30px rgba(139,92,246,0.18)",
+                                   "0 0 50px rgba(139,92,246,0.25)",
                                    "0 0 10px rgba(139,92,246,0.05)",
                               ],
                     }}
                     transition={{
                          scale: {
-                              duration: 4 + (floatDelay ?? 0),
+                              duration: 3.5 + (floatDelay ?? 0),
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                         },
+                         y: {
+                              duration: 3.5 + (floatDelay ?? 0),
                               repeat: Infinity,
                               ease: "easeInOut",
                          },
                          borderColor: {
-                              duration: 4 + (floatDelay ?? 0),
+                              duration: 3.5 + (floatDelay ?? 0),
                               repeat: Infinity,
                               ease: "easeInOut",
                          },
                          boxShadow: {
-                              duration: 4 + (floatDelay ?? 0),
+                              duration: 3.5 + (floatDelay ?? 0),
                               repeat: Infinity,
                               ease: "easeInOut",
                          },
