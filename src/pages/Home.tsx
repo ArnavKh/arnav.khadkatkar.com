@@ -201,10 +201,7 @@ export default function Home() {
                                    top: `${position.y}%`,
                               }}
                               isHighlighted={!!related}
-                              isDimmed={
-                                   activeNode !== null &&
-                                   !related
-                              }
+                              isDimmed={activeNode !== null && !related}
                               className="-translate-x-1/2 -translate-y-1/2"
                          />
                     );
