@@ -6,6 +6,7 @@ export interface BaseEntity {
 
 export interface Project {
      id: string;
+
      title: string;
      description: string;
 
@@ -14,6 +15,8 @@ export interface Project {
      | "professional"
      | "research";
 
+     featured?: boolean;
+
      techStack: string[];
      tags: string[];
 
@@ -21,7 +24,30 @@ export interface Project {
      relatedProjects: string[];
      relatedExperience: string[];
 
-     featured?: boolean;
+     // New
+
+     heroTitle: string;
+     heroSubtitle: string;
+
+     problem: string;
+     solution: string;
+
+     highlights: string[];
+
+     metrics?: {
+          label: string;
+          value: string;
+     }[];
+
+     theme: {
+          accent: string;
+          glow: string;
+     };
+
+     visual: {
+          background: string;
+          image?: string;
+     }
 }
 
 export interface Experience {
