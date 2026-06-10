@@ -35,9 +35,7 @@ export default function Home() {
                new ResizeObserver(buildPaths);
 
           if (centerRef.current) {
-               resizeObserver.observe(
-                    centerRef.current
-               );
+               resizeObserver.observe(centerRef.current);
           }
 
           Object.values(nodeRefs.current).forEach(
@@ -109,19 +107,77 @@ export default function Home() {
 
                <NetworkBackground mousePosition={mousePosition} />
 
-               <svg className="pointer-events-none absolute inset-0 h-full w-full">
-                    {paths.map((path, index) => (
-                         <path
-                              key={index}
-                              d={path}
-                              fill="none"
-                              stroke="rgb(139 92 246)"
-                              strokeWidth="2"
-                              opacity={getLineOpacity(
-                                   NAV_NODES[index].id
-                              )}
-                         />
-                    ))}
+               <svg className="pointer-events-none absolute inset-0 h-full w-full overflow-visible">
+                    <defs>
+                         <filter
+                              id="packetGlow"
+                              x="-100%"
+                              y="-100%"
+                              width="300%"
+                              height="300%"
+                         >
+                              <feGaussianBlur
+                                   stdDeviation="6"
+                                   result="blur"
+                              />
+
+                              <feMerge>
+                                   <feMergeNode in="blur" />
+                                   <feMergeNode in="SourceGraphic" />
+                              </feMerge>
+                         </filter>
+                    </defs>
+                    {paths.map((path, index) => {
+                         const nodeId = NAV_NODES[index].id;
+                         const isActive = activeNode === nodeId;
+
+                         return (
+                              <g key={nodeId}>
+                                   <path
+                                        d={path}
+                                        fill="none"
+                                        stroke="rgb(139 92 246)"
+                                        strokeWidth="2"
+                                        opacity={getLineOpacity(nodeId)}
+                                   />
+
+                                   {isActive && (
+                                        <>
+                                             <circle
+                                                  r="4"
+                                                  fill="#22d3ee"
+                                                  style={{
+                                                       filter:
+                                                            "drop-shadow(0 0 8px #22d3ee)",
+                                                  }}
+                                             >
+                                                  <animateMotion
+                                                       dur="2.2s"
+                                                       repeatCount="indefinite"
+                                                       path={path}
+                                                  />
+                                             </circle>
+
+                                             <circle
+                                                  r="4"
+                                                  fill="#22d3ee"
+                                                  style={{
+                                                       filter:
+                                                            "drop-shadow(0 0 8px #a78bfa)",
+                                                  }}
+                                             >
+                                                  <animateMotion
+                                                       dur="2.2s"
+                                                       begin="-1.1s"
+                                                       repeatCount="indefinite"
+                                                       path={path}
+                                                  />
+                                             </circle>
+                                        </>
+                                   )}
+                              </g>
+                         );
+                    })}
                </svg>
 
                <CenterNode
@@ -144,13 +200,9 @@ export default function Home() {
                               title={node.title}
                               subtitle={node.subtitle}
                               className={
-                                   node.id === "projects"
-                                        ? isMobile
-                                             ? "h-32 w-[85vw] -translate-x-1/2 -translate-y-1/2"
-                                             : "h-32 w-[min(55vw,22rem)] -translate-x-1/2 -translate-y-1/2"
-                                        : isMobile
-                                             ? "h-24 w-[75vw] -translate-x-1/2 -translate-y-1/2"
-                                             : "h-24 w-[min(35vw,14rem)] -translate-x-1/2 -translate-y-1/2"
+                                   isMobile
+                                        ? "h-24 w-[75vw] -translate-x-1/2 -translate-y-1/2"
+                                        : "h-24 w-[min(35vw,14rem)] -translate-x-1/2 -translate-y-1/2"
                               }
                               style={{
                                    left: `${position.x}%`,
@@ -170,8 +222,6 @@ export default function Home() {
                })}
 
                {SKILL_NODES.filter((skill) => {
-                    if (!isMobile) return true;
-
                     return [
                          "React",
                          "TypeScript",

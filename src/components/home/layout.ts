@@ -19,16 +19,16 @@ export const DESKTOP_LAYOUT = {
 
 export const TABLET_LAYOUT = {
      nav: {
-          projects: { x: 70, y: 40 },
+          projects: { x: 85, y: 40 },
           experience: { x: 18, y: 40 },
           timeline: { x: 50, y: 16 },
-          lab: { x: 60, y: 70 },
+          lab: { x: 60, y: 75 },
      },
      skills: {
           React: { x: 72, y: 24 },
           TypeScript: { x: 40, y: 20 },
           "Node.js": { x: 20, y: 58 },
-          MongoDB: { x: 56, y: 60 },
+          MongoDB: { x: 56, y: 65 },
           AWS: { x: 38, y: 72 },
           AI: { x: 76, y: 62 },
           ERP: { x: 24, y: 32 },

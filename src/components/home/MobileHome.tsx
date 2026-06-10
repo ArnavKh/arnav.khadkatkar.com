@@ -62,11 +62,10 @@ export default function MobileHome({
 
                          <div className="grid grid-cols-2 gap-4">
                               {NAV_NODES.map((node) => (
-                                   <button
+                                   <motion.button
+                                        layoutId={node.layoutId}
                                         key={node.id}
-                                        onClick={() =>
-                                             navigate(node.route)
-                                        }
+                                        onClick={() => navigate(node.route)}
                                         className="relative rounded-2xl border border-violet-500/20 bg-[#0B1120]/80 p-5 text-left backdrop-blur-md transition-all duration-300 active:scale-[0.98]"
                                    >
                                         <div className="text-base font-medium">
@@ -76,7 +75,7 @@ export default function MobileHome({
                                         <div className="mt-1 text-xs text-slate-500">
                                              {node.subtitle}
                                         </div>
-                                   </button>
+                                   </motion.button>
                               ))}
                          </div>
                     </div>
