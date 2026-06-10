@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
 import { projects } from "../content/index";
+import ProjectRenderer from "../components/projects/ProjectRenderer";
 import ProjectNavigator from "../components/projects/ProjectNavigator";
-import ProjectSection from "../components/projects/ProjectSection";
 import NetworkBackground from "../components/home/NetworkBackground";
 import { useEffect, useState } from "react";
 import { useProjectSlides } from "../hooks/useProjectSlides";
@@ -42,7 +42,7 @@ export default function Projects() {
       <ProjectNavigator projects={projects} />
 
       {projects.map((project) => (
-        <ProjectSection
+        <ProjectRenderer
           key={project.id}
           project={project}
         />
