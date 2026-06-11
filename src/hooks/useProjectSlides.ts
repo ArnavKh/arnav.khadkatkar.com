@@ -4,117 +4,126 @@ export function useProjectSlides() {
      const isAnimating = useRef(false);
 
      useEffect(() => {
-          const handleWheel = (e: WheelEvent) => {
+          const getSlides = () =>
+               Array.from(
+                    document.querySelectorAll("[data-slide]")
+               ) as HTMLElement[];
+
+          const getCurrentSlideIndex = (
+               slides: HTMLElement[]
+          ) => {
+               const center =
+                    window.scrollY +
+                    window.innerHeight / 2;
+
+               return slides.findIndex(
+                    (slide, index) => {
+                         const next =
+                              slides[index + 1];
+
+                         if (!next) return true;
+
+                         return (
+                              center >=
+                              slide.offsetTop &&
+                              center <
+                              next.offsetTop
+                         );
+                    }
+               );
+          };
+
+          const scrollToIndex = (
+               slides: HTMLElement[],
+               index: number
+          ) => {
+               if (
+                    index < 0 ||
+                    index >= slides.length
+               )
+                    return;
+
+               isAnimating.current = true;
+
+               // slides[index].scrollIntoView({
+               //      behavior: "smooth",
+               //      block: "start",
+               // });
+
+               window.scrollTo({
+                    top: slides[index].offsetTop,
+                    behavior: "smooth",
+               });
+
+
+               setTimeout(() => {
+                    isAnimating.current = false;
+               }, 400);
+          };
+
+          const handleWheel = (
+               e: WheelEvent
+          ) => {
                if (isAnimating.current) {
                     e.preventDefault();
                     return;
                }
 
-               const slides = Array.from(
-                    document.querySelectorAll("[data-slide]")
-               ) as HTMLElement[];
+               const slides = getSlides();
 
-               const currentScroll = window.scrollY;
+               const current =
+                    getCurrentSlideIndex(slides);
 
-               const currentIndex = slides.findIndex(
-                    (slide, index) => {
-                         const nextSlide =
-                              slides[index + 1];
+               if (current === -1) return;
 
-                         if (!nextSlide) {
-                              return (
-                                   currentScroll >=
-                                   slide.offsetTop
-                              );
-                         }
+               if (Math.abs(e.deltaY) < 20)
+                    return;
 
-                         return (
-                              currentScroll >=
-                              slide.offsetTop &&
-                              currentScroll <
-                              nextSlide.offsetTop
-                         );
-                    }
-               );
-
-               if (currentIndex === -1) return;
-
-               const currentSlide =
-                    slides[currentIndex];
-
-               const slideTop =
-                    currentSlide.offsetTop;
-
-               const slideBottom =
-                    slideTop +
-                    currentSlide.offsetHeight;
-
-               const viewportBottom =
-                    window.scrollY +
-                    window.innerHeight;
+               e.preventDefault();
 
                if (e.deltaY > 0) {
-                    const canScrollInside =
-                         viewportBottom <
-                         slideBottom - 10;
-
-                    if (
-                         canScrollInside
-                    )
-                         return;
-
-                    const nextSlide =
-                         slides[
-                         currentIndex + 1
-                         ];
-
-                    if (!nextSlide) return;
-
-                    e.preventDefault();
-
-                    isAnimating.current = true;
-
-                    nextSlide.scrollIntoView({
-                         behavior: "smooth",
-                         block: "start",
-                    });
-
-                    setTimeout(() => {
-                         isAnimating.current =
-                              false;
-                    }, 800);
+                    scrollToIndex(
+                         slides,
+                         current + 1
+                    );
+               } else {
+                    scrollToIndex(
+                         slides,
+                         current - 1
+                    );
                }
+          };
 
-               if (e.deltaY < 0) {
-                    const canScrollInside =
-                         window.scrollY >
-                         slideTop + 10;
+          const handleKeyDown = (
+               e: KeyboardEvent
+          ) => {
+               if (isAnimating.current) return;
 
-                    if (
-                         canScrollInside
-                    )
-                         return;
+               const slides = getSlides();
 
-                    const prevSlide =
-                         slides[
-                         currentIndex - 1
-                         ];
+               const current =
+                    getCurrentSlideIndex(slides);
 
-                    if (!prevSlide) return;
+               if (current === -1) return;
 
-                    e.preventDefault();
+               switch (e.key) {
+                    case "ArrowDown":
+                    case "ArrowRight":
+                         e.preventDefault();
+                         scrollToIndex(
+                              slides,
+                              current + 1
+                         );
+                         break;
 
-                    isAnimating.current = true;
-
-                    prevSlide.scrollIntoView({
-                         behavior: "smooth",
-                         block: "start",
-                    });
-
-                    setTimeout(() => {
-                         isAnimating.current =
-                              false;
-                    }, 800);
+                    case "ArrowUp":
+                    case "ArrowLeft":
+                         e.preventDefault();
+                         scrollToIndex(
+                              slides,
+                              current - 1
+                         );
+                         break;
                }
           };
 
@@ -124,10 +133,21 @@ export function useProjectSlides() {
                { passive: false }
           );
 
-          return () =>
+          window.addEventListener(
+               "keydown",
+               handleKeyDown
+          );
+
+          return () => {
                window.removeEventListener(
                     "wheel",
                     handleWheel
                );
+
+               window.removeEventListener(
+                    "keydown",
+                    handleKeyDown
+               );
+          };
      }, []);
 }
