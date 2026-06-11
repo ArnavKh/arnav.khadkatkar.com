@@ -38,9 +38,9 @@ export default function DigitalLabSlide() {
 
                               <div className="mb-12">
                                    <img
-                                        src="/pwc-logo.svg"
+                                        src="/pwc-logo.png"
                                         alt="PwC"
-                                        className="h-16 object-contain"
+                                        className="h-28 object-contain"
                                    />
                               </div>
 
