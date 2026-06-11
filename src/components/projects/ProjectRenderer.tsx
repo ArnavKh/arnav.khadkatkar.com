@@ -2,7 +2,8 @@ import type { Project } from "../../content/types";
 import ProjectSection from "./ProjectSection";
 
 import ShortifySlide from "./ShortifySlide";
-import InventechSlide from "./Inventech";
+import InventechSlide from "./InventechSlide";
+import DigitalLabSlide from "./DigitalLabSlide";
 
 interface Props {
      project: Project;
@@ -17,6 +18,9 @@ export default function ProjectRenderer({
 
           case "inventech":
                return <InventechSlide />;
+
+          case "digitalLab":
+               return <DigitalLabSlide />;
 
           default:
                return (

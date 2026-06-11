@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-
-import { projects } from "../content/index";
-import ProjectRenderer from "../components/projects/ProjectRenderer";
-import ProjectNavigator from "../components/projects/ProjectNavigator";
-import NetworkBackground from "../components/home/NetworkBackground";
 import { useEffect, useState } from "react";
 import { useProjectSlides } from "../hooks/useProjectSlides";
+
+import NetworkBackground from "../components/home/NetworkBackground";
+import { projects } from "../content/index";
+import ProjectNavigator from "../components/projects/ProjectNavigator";
+import ProjectRenderer from "../components/projects/ProjectRenderer";
 
 export default function Projects() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });

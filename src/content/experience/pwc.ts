@@ -19,7 +19,7 @@ export const pwc: Experience = {
   ],
 
   relatedProjects: [
-    "digital-lab"
+    "digitalLab"
   ],
 
   relatedSkills: [

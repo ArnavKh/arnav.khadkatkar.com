@@ -9,7 +9,7 @@ export default function ShortifySlide() {
           >
                {/* Background */}
 
-               <div className="absolute inset-0 bg-gradient-to-br from-pink-600/20 via-orange-500/10 to-red-500/20" />
+               <div className="absolute inset-0 bg-linear-to-br from-pink-600/20 via-orange-500/10 to-red-500/20" />
 
                {/* Emoji Background */}
 

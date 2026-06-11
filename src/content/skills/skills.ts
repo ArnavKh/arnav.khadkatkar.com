@@ -8,7 +8,7 @@ export const skills: Skill[] = [
     category: "frontend",
     relatedProjects: [
       "shortify",
-      "digital-lab",
+      "digitalLab",
       "inventech",
       "siddharth-starch"
     ],
@@ -37,7 +37,7 @@ export const skills: Skill[] = [
     category: "frontend",
     relatedProjects: [
       "shortify",
-      "digital-lab",
+      "digitalLab",
       "inventech"
     ],
     relatedExperience: [
@@ -52,7 +52,7 @@ export const skills: Skill[] = [
     description: "Backend application development.",
     category: "backend",
     relatedProjects: [
-      "digital-lab",
+      "digitalLab",
       "inventech",
       "siddharth-starch"
     ],
@@ -143,7 +143,7 @@ export const skills: Skill[] = [
     category: "research",
     relatedProjects: [
       "inventech",
-      "digital-lab"
+      "digitalLab"
     ],
     relatedExperience: [
       "pwc"

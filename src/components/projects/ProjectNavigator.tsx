@@ -42,7 +42,7 @@ export default function ProjectNavigator({
      };
 
      return (
-          <section data-slide className="relative flex min-h-screen items-center overflow-hidden px-6">
+          <section data-slide className="relative flex min-h-screen items-start overflow-hidden px-6 pt-20">
                <div className="mx-auto w-full max-w-7xl">
                     <motion.div
                          layoutId="projects-node"
@@ -65,7 +65,7 @@ export default function ProjectNavigator({
 
                     {/* Category Filters */}
 
-                    <div className="mt-12 flex flex-wrap gap-3">
+                    <div className="mt-8 flex flex-wrap gap-3">
                          {[
                               "all",
                               "personal",
@@ -116,7 +116,7 @@ export default function ProjectNavigator({
 
                     {/* Project Nodes */}
 
-                    <div className="mt-16 grid gap-4 md:grid-cols-2">
+                    <div className="mt-10 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
                          {filteredProjects.map(
                               (project) => (
                                    <button
@@ -128,7 +128,7 @@ export default function ProjectNavigator({
                                         }
                                         className="group rounded-3xl border border-white/10 bg-[#0B1120]/70 p-6 text-left transition-all duration-300 hover:border-violet-500/30 hover:bg-[#0F172A]"
                                    >
-                                        <div className="mb-4 flex items-center gap-3">
+                                       <div className="mb-2 flex items-center gap-2">
                                              <div className="h-3 w-3 rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.8)]" />
 
                                              <div className="text-xl font-medium">
