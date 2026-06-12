@@ -7,7 +7,6 @@ import { projects } from "../content/index";
 import ProjectNavigator from "../components/projects/ProjectNavigator";
 import ProjectRenderer from "../components/projects/ProjectRenderer";
 
-import ScrollToTopButton from "../components/common/ScrollToTopButton";
 import ProjectRail from "../components/common/ProjectRail";
 
 export default function Projects() {
@@ -71,8 +70,6 @@ export default function Projects() {
           project={project}
         />
       ))}
-
-      <ScrollToTopButton />
     </div>
   );
 }
