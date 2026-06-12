@@ -8,6 +8,7 @@ import ProjectNavigator from "../components/projects/ProjectNavigator";
 import ProjectRenderer from "../components/projects/ProjectRenderer";
 
 import ScrollToTopButton from "../components/common/ScrollToTopButton";
+import ProjectRail from "../components/common/ProjectRail";
 
 export default function Projects() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -31,6 +32,27 @@ export default function Projects() {
 
     <div className="bg-[#050816] text-white">
       <NetworkBackground mousePosition={mousePosition} />
+
+      <ProjectRail
+        sections={[
+          {
+            id: "navigator",
+            label: "Projects",
+          },
+          {
+            id: "shortify",
+            label: "Shortify",
+          },
+          {
+            id: "inventech",
+            label: "Inventech",
+          },
+          {
+            id: "robotic-glove",
+            label: "Glove",
+          },
+        ]}
+      />
 
       <div className="fixed left-6 top-6 z-50">
         <Link
