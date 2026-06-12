@@ -7,6 +7,8 @@ import { projects } from "../content/index";
 import ProjectNavigator from "../components/projects/ProjectNavigator";
 import ProjectRenderer from "../components/projects/ProjectRenderer";
 
+import ScrollToTopButton from "../components/common/ScrollToTopButton";
+
 export default function Projects() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -47,6 +49,8 @@ export default function Projects() {
           project={project}
         />
       ))}
+
+      <ScrollToTopButton />
     </div>
   );
 }
