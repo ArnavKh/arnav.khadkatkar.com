@@ -16,6 +16,9 @@ export default function ProjectRail({
      const [activeSection, setActiveSection] =
           useState(sections[0]?.id);
 
+     const [hoveredSection, setHoveredSection] =
+          useState<string | null>(null);
+
      useEffect(() => {
           const observer =
                new IntersectionObserver(
@@ -51,54 +54,118 @@ export default function ProjectRail({
 
      return (
           <div className="fixed right-8 top-1/2 z-50 -translate-y-1/2">
-               <div className="flex flex-col items-center">
+               <div className="flex flex-col items-end">
 
                     {sections.map(
-                         (section, index) => (
-                              <div
-                                   key={section.id}
-                                   className="flex flex-col items-center"
-                              >
-                                   <motion.button
-                                        onClick={() =>
-                                             document
-                                                  .getElementById(
+                         (section, index) => {
+                              const isActive =
+                                   activeSection ===
+                                   section.id;
+
+                              const isHovered =
+                                   hoveredSection ===
+                                   section.id;
+
+                              return (
+                                   <div
+                                        key={section.id}
+                                        className="flex flex-col items-end"
+                                   >
+                                        <div
+                                             className="group flex items-center gap-4"
+                                             onMouseEnter={() =>
+                                                  setHoveredSection(
                                                        section.id
                                                   )
-                                                  ?.scrollIntoView({
-                                                       behavior:
-                                                            "smooth",
-                                                       block:
-                                                            "start",
-                                                  })
-                                        }
-                                        animate={{
-                                             scale:
-                                                  activeSection ===
-                                                       section.id
-                                                       ? 1.2
-                                                       : 1,
-                                        }}
-                                        className={`h-3 w-3 rounded-full border transition-all duration-300 ${activeSection ===
-                                                  section.id
-                                                  ? "border-cyan-400 bg-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.9)]"
-                                                  : "border-violet-500/40 bg-[#0B1120]"
-                                             }`}
-                                   />
+                                             }
+                                             onMouseLeave={() =>
+                                                  setHoveredSection(
+                                                       null
+                                                  )
+                                             }
+                                        >
+                                             {/* Label */}
 
-                                   {index <
-                                        sections.length -
-                                        1 && (
-                                             <div
-                                                  className={`h-10 w-px ${activeSection ===
-                                                            section.id
-                                                            ? "bg-cyan-400/50"
-                                                            : "bg-violet-500/20"
+                                             <motion.button
+                                                  onClick={() =>
+                                                       document
+                                                            .getElementById(
+                                                                 section.id
+                                                            )
+                                                            ?.scrollIntoView(
+                                                                 {
+                                                                      behavior:
+                                                                           "smooth",
+                                                                      block:
+                                                                           "start",
+                                                                 }
+                                                            )
+                                                  }
+                                                  animate={{
+                                                       opacity:
+                                                            isActive ||
+                                                                 isHovered
+                                                                 ? 1
+                                                                 : 0.45,
+                                                  }}
+                                                  className={`text-sm transition-colors ${isActive
+                                                            ? "text-cyan-300"
+                                                            : "text-slate-500 hover:text-slate-300"
+                                                       }`}
+                                             >
+                                                  {
+                                                       section.label
+                                                  }
+                                             </motion.button>
+
+                                             {/* Node */}
+
+                                             <motion.button
+                                                  onClick={() =>
+                                                       document
+                                                            .getElementById(
+                                                                 section.id
+                                                            )
+                                                            ?.scrollIntoView(
+                                                                 {
+                                                                      behavior:
+                                                                           "smooth",
+                                                                      block:
+                                                                           "start",
+                                                                 }
+                                                            )
+                                                  }
+                                                  animate={{
+                                                       scale:
+                                                            isActive
+                                                                 ? 1.4
+                                                                 : isHovered
+                                                                      ? 1.8
+                                                                      : 1,
+                                                  }}
+                                                  transition={{
+                                                       duration: 0.2,
+                                                  }}
+                                                  className={`rounded-full border transition-all duration-300 ${isActive
+                                                            ? "h-4 w-4 border-cyan-400 bg-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.9)]"
+                                                            : "h-3 w-3 border-violet-500/40 bg-[#0B1120]"
                                                        }`}
                                              />
-                                        )}
-                              </div>
-                         )
+                                        </div>
+
+                                        {index <
+                                             sections.length -
+                                             1 && (
+                                                  <div
+                                                       className={`mr-[6px] h-10 w-px ${isActive
+                                                                 ? "bg-cyan-400/50"
+                                                                 : "bg-violet-500/20"
+                                                            }`}
+                                                  />
+                                             )}
+                                   </div>
+                              );
+                         }
                     )}
 
                </div>

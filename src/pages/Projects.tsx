@@ -37,7 +37,7 @@ export default function Projects() {
         sections={[
           {
             id: "navigator",
-            label: "Projects",
+            label: "Hub",
           },
           {
             id: "shortify",
