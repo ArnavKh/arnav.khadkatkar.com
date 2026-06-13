@@ -50,6 +50,10 @@ export default function Projects() {
             id: "robotic-glove",
             label: "Glove",
           },
+          {
+            id: "digitalLab",
+            label: "Digital Lab",
+          },
         ]}
       />
 
