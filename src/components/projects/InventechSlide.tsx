@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
+import type { Project } from "../../content/types";
 
-export default function InventechSlide() {
+export default function InventechSlide({ project }: { project?: Project }) {
      return (
           <section
-               id="inventech"
+               id={project?.id ?? "inventech"}
                data-slide
                className="relative min-h-screen overflow-hidden bg-slate-50 text-slate-900"
           >

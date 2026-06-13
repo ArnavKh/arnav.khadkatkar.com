@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
+import type { Project } from "../../content/types";
 
-export default function DigitalLabSlide() {
+export default function DigitalLabSlide({ project }: { project?: Project }) {
      const capabilities = [
           "AI & GenAI",
           "Cloud Engineering",
@@ -12,7 +13,7 @@ export default function DigitalLabSlide() {
 
      return (
           <section
-               id="digitalLab"
+               id={project?.id ?? "digitalLab"}
                data-slide
                className="relative min-h-screen overflow-hidden bg-white text-[#111111]"
           >

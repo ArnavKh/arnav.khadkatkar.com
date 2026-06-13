@@ -34,26 +34,8 @@ export default function Projects() {
 
       <ProjectRail
         sections={[
-          {
-            id: "navigator",
-            label: "Hub",
-          },
-          {
-            id: "shortify",
-            label: "Shortify",
-          },
-          {
-            id: "inventech",
-            label: "Inventech",
-          },
-          {
-            id: "robotic-glove",
-            label: "Glove",
-          },
-          {
-            id: "digitalLab",
-            label: "Digital Lab",
-          },
+          { id: "navigator", label: "Hub" },
+          ...projects.map((p) => ({ id: p.id, label: p.title })),
         ]}
       />
 

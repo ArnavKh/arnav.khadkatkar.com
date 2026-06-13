@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
+import type { Project } from "../../content/types";
 
-export default function ShortifySlide() {
+export default function ShortifySlide({ project }: { project?: Project }) {
      return (
           <section
-               id="shortify"
+               id={project?.id ?? "shortify"}
                data-slide
                className="relative min-h-screen overflow-hidden"
           >

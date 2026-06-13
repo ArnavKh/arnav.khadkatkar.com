@@ -18,5 +18,3 @@ export const experiences = [
 export {
   skills
 };
-
-console.log(projects);

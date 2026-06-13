@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
+import type { Project } from "../../content/types";
 
-export default function GloveSlide() {
+export default function GloveSlide({ project }: { project?: Project }) {
      return (
           <section
-               id="robotic-glove"
+               id={project?.id ?? "robotic-glove"}
                data-slide
                className="relative min-h-screen overflow-hidden bg-[#020617] text-white"
           >
