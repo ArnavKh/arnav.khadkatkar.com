@@ -51,12 +51,13 @@ export const inventech: Project = {
      },
 
      techStack: [
-          "Next.js",
-          "TypeScript",
-          "MongoDB",
-          "AWS",
+          "React",
+          "Node.js",
+          "Express",
+          "MySQL",
+          "Cloudflare",
+          "DigitalOcean",
      ],
-
      tags: [
           "AI",
           "Social Media",
