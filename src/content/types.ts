@@ -47,7 +47,13 @@ export interface Project {
      visual: {
           background: string;
           image?: string;
-     }
+     };
+
+     githubUrl?: string;
+     demoUrl?: string;
+     videoUrl?: string;
+
+     screenshots?: string[];
 }
 
 export interface Experience {

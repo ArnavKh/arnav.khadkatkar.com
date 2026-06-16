@@ -75,5 +75,17 @@ export const shortify: Project = {
 
   visual: {
     background: "",
-  }
+  },
+
+  githubUrl:
+    "https://github.com/ArnavKh/Shortify",
+
+  videoUrl:
+    "https://www.linkedin.com/feed/update/urn:li:activity:7290056098395389952/",
+
+  screenshots: [
+    "/images/projects/shortify/feed.png",
+    "/images/projects/shortify/analytics.png",
+    "/images/projects/shortify/sentiment.png",
+  ],
 };
