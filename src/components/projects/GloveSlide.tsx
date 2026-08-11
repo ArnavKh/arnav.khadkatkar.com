@@ -1,104 +1,147 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import type { Project } from "../../content/types";
 
 export default function GloveSlide({ project }: { project?: Project }) {
+     const [mouse, setMouse] = useState({ x: 0.5, y: 0.5 });
+
+     useEffect(() => {
+          const handleMouseMove = (event: MouseEvent) => {
+               setMouse({
+                    x: event.clientX / window.innerWidth,
+                    y: event.clientY / window.innerHeight,
+               });
+          };
+
+          window.addEventListener("mousemove", handleMouseMove);
+          return () => window.removeEventListener("mousemove", handleMouseMove);
+     }, []);
+
      return (
           <section
                id={project?.id ?? "robotic-glove"}
                data-slide
-               className="relative min-h-screen overflow-hidden bg-[#111315] text-[#e8e6df]"
+               className="relative min-h-screen overflow-hidden bg-[#1D3028] text-[#F1F5E9]"
           >
-               {/* Background */}
-
+               {/* Technical Mat */}
                <div className="pointer-events-none absolute inset-0">
                     <div
-                         className="absolute inset-0 opacity-[0.12]"
+                         className="absolute inset-0 opacity-[0.075]"
                          style={{
-                              backgroundImage:
-                                   "linear-gradient(rgba(232,230,223,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(232,230,223,0.08) 1px, transparent 1px)",
-                              backgroundSize: "48px 48px",
+                              backgroundImage: `
+                                   linear-gradient(to right, #B8D8C0 1px, transparent 1px),
+                                   linear-gradient(to bottom, #B8D8C0 1px, transparent 1px)
+                              `,
+                              backgroundSize: "44px 44px",
                          }}
                     />
-
-                    <div className="absolute -right-40 top-1/2 h-[700px] w-[700px] -translate-y-1/2 rounded-full border border-slate-400/10" />
-                    <div className="absolute -right-10 top-1/2 h-[500px] w-[500px] -translate-y-1/2 rounded-full border border-slate-400/10" />
-                    <div className="absolute left-[35%] top-[15%] h-72 w-72 rounded-full bg-slate-400/5 blur-[120px]" />
+                    <div
+                         className="absolute inset-0 opacity-[0.1]"
+                         style={{
+                              backgroundImage: `
+                                   linear-gradient(to right, #C7E6CF 1px, transparent 1px),
+                                   linear-gradient(to bottom, #C7E6CF 1px, transparent 1px)
+                              `,
+                              backgroundSize: "220px 220px",
+                         }}
+                    />
+                    <div className="absolute left-0 top-[18%] h-px w-full bg-[#B8F34A]/10" />
+                    <div className="absolute left-[8%] top-0 h-full w-px bg-[#B8F34A]/10" />
+                    <div className="absolute right-[8%] top-0 h-full w-px bg-[#B8F34A]/10" />
                </div>
 
                {/* Main */}
+               <div className="relative z-10 mx-auto flex min-h-screen max-w-[1500px] items-center px-6 py-16 lg:px-10">
+                    <div className="grid w-full gap-10 lg:grid-cols-12 lg:items-center">
 
-               <div className="relative z-10 mx-auto flex min-h-screen max-w-[1500px] items-center px-6 py-20 lg:px-10">
-                    <div className="grid w-full gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
-                         {/* Left */}
+                         {/* LEFT */}
+                         <div className="flex flex-col lg:col-span-5">
+                              <div>
+                                   <div className="flex items-center gap-3">
+                                        <span className="h-2 w-2 rounded-full bg-[#B8F34A] shadow-[0_0_12px_rgba(184,243,74,0.4)]" />
+                                        <span className="text-[10px] uppercase tracking-[0.35em] text-[#B8F34A]">
+                                             Rehabilitation Robotics
+                                        </span>
+                                   </div>
 
-                         <div className="flex flex-col">
-                              <div className="flex items-center gap-3">
-                                   <div className="h-px w-10 bg-slate-500" />
-                                   <span className="text-[10px] uppercase tracking-[0.35em] text-slate-500">
-                                        Healthcare Robotics
-                                   </span>
-                              </div>
-
-                              <div className="mt-7">
-                                   <h2 className="text-5xl font-semibold tracking-[-0.04em] sm:text-6xl lg:text-7xl">
+                                   <h2 className="mt-7 text-5xl font-semibold tracking-[-0.05em] sm:text-6xl lg:text-7xl">
                                         Therapeutic
                                         <br />
-                                        <span className="text-slate-500">
+                                        <span className="text-[#F1F5E9]/45">
                                              Robotic Glove
                                         </span>
                                    </h2>
 
-                                   <div className="mt-6 h-px w-24 bg-slate-600" />
-
-                                   <p className="mt-7 max-w-lg text-lg leading-8 text-slate-300">
-                                        A wearable rehabilitation system
-                                        designed to assist hand movement
-                                        through controlled robotic actuation.
-                                   </p>
-
-                                   <p className="mt-4 max-w-lg text-sm leading-7 text-slate-500">
-                                        The project explored the combination
-                                        of wearable mechanics, servo-based
-                                        actuation and embedded control to
-                                        create an accessible approach to
-                                        assisted hand rehabilitation.
-                                   </p>
-                              </div>
-
-                              {/* Project Metadata */}
-
-                              <div className="mt-9 flex flex-wrap gap-x-7 gap-y-3 text-[10px] uppercase tracking-[0.2em] text-slate-500">
-                                   <span>Research</span>
-                                   <span>Hardware</span>
-                                   <span>Rehabilitation</span>
-                                   <span>Prototype</span>
-                              </div>
-
-                              {/* Development */}
-
-                              <div className="mt-10 border-t border-white/10 pt-7">
-                                   <div className="text-[10px] uppercase tracking-[0.3em] text-slate-600">
-                                        Prototype Evolution
+                                   <div className="mt-7 flex items-center gap-2">
+                                        <div className="h-1 w-14 rounded-full bg-[#B8F34A]" />
+                                        <div className="h-1 w-5 rounded-full bg-[#78BFA3]" />
                                    </div>
 
-                                   <div className="mt-5 flex items-center">
-                                        <Iteration number="01" label="Concept" />
-                                        <IterationLine />
-                                        <Iteration number="02" label="Prototype" />
-                                        <IterationLine />
-                                        <Iteration number="03" label="Testing" />
-                                        <IterationLine />
-                                        <Iteration number="04" label="Iteration" />
+                                   <p className="mt-8 max-w-xl text-lg leading-8 text-[#F1F5E9]/80">
+                                        A wearable rehabilitation system designed to assist hand movement through controlled robotic actuation.
+                                   </p>
+
+                                   <p className="mt-5 max-w-xl text-sm leading-7 text-[#F1F5E9]/45">
+                                        The project explored wearable mechanics, servo-based actuation and embedded control to create an accessible approach to assisted hand rehabilitation.
+                                   </p>
+
+                                   <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[10px] uppercase tracking-[0.2em] text-[#F1F5E9]/35">
+                                        <span>Hardware</span>
+                                        <span>Research</span>
+                                        <span>Healthcare</span>
+                                        <span>Prototype</span>
+                                   </div>
+                              </div>
+
+                              {/* Interactive Mechanism */}
+                              <div className="mt-16 pt-4">
+                                   <div className="mb-4 flex items-end justify-between">
+                                        <div>
+                                             <div className="text-[9px] uppercase tracking-[0.3em] text-[#F1F5E9]/35">
+                                                  Assisted Finger Movement
+                                             </div>
+                                             <div className="mt-1 text-xs text-[#F1F5E9]/25">
+                                                  Move the cursor to control flexion
+                                             </div>
+                                        </div>
+
+                                        <div className="flex items-center gap-2 text-[9px] uppercase tracking-[0.2em] text-[#B8F34A]/60">
+                                             <span className="h-1.5 w-1.5 rounded-full bg-[#B8F34A]" />
+                                             Active
+                                        </div>
+                                   </div>
+
+                                   <div className="relative h-60 overflow-hidden border border-[#B8F34A]/15 bg-[#172920]/60">
+                                        <div className="absolute left-4 top-4 text-[7px] uppercase tracking-[0.25em] text-[#F1F5E9]/20">
+                                             Control
+                                        </div>
+
+                                        <div className="absolute right-4 top-4 text-[7px] uppercase tracking-[0.25em] text-[#F1F5E9]/20">
+                                             Actuation
+                                        </div>
+
+                                        <div className="absolute inset-0">
+                                             {[0, 1, 2, 3, 4].map((finger) => (
+                                                  <FingerMechanism
+                                                       key={finger}
+                                                       index={finger}
+                                                       mouse={mouse}
+                                                  />
+                                             ))}
+                                        </div>
+
+                                        <div className="absolute bottom-3 left-4 text-[8px] uppercase tracking-[0.2em] text-[#F1F5E9]/20">
+                                             Five-channel assisted movement
+                                        </div>
                                    </div>
                               </div>
 
                               {/* Tech */}
-
-                              <div className="mt-9 flex flex-wrap gap-2">
+                              <div className="mt-7 flex flex-wrap gap-2">
                                    {project?.techStack?.map((tech) => (
                                         <span
                                              key={tech}
-                                             className="border border-white/10 px-3 py-1.5 text-xs text-slate-500"
+                                             className="rounded-md border border-[#F1F5E9]/10 bg-[#F1F5E9]/[0.04] px-3 py-1.5 text-xs text-[#F1F5E9]/45"
                                         >
                                              {tech}
                                         </span>
@@ -106,47 +149,40 @@ export default function GloveSlide({ project }: { project?: Project }) {
                               </div>
                          </div>
 
-                         {/* Right */}
-
-                         <div className="relative">
-                              {/* Video label */}
-
+                         {/* RIGHT */}
+                         <div className="lg:col-span-7">
                               <div className="mb-4 flex items-end justify-between">
                                    <div>
-                                        <div className="text-[10px] uppercase tracking-[0.35em] text-slate-600">
-                                             Prototype Documentation
+                                        <div className="text-[9px] uppercase tracking-[0.35em] text-[#F1F5E9]/30">
+                                             Prototype Evolution
                                         </div>
-                                        <div className="mt-2 text-sm text-slate-400">
-                                             From concept to working mechanism
+                                        <div className="mt-2 text-sm text-[#F1F5E9]/55">
+                                             Concept → Build → Test → Refine
                                         </div>
                                    </div>
 
-                                   <div className="hidden text-[10px] uppercase tracking-[0.2em] text-slate-600 sm:block">
-                                        Development / 01—04
+                                   <div className="text-[9px] uppercase tracking-[0.2em] text-[#F1F5E9]/20">
+                                        DEVELOPMENT / 01—04
                                    </div>
                               </div>
 
                               {/* Video */}
-
                               <motion.div
-                                   initial={{ opacity: 0, y: 25 }}
+                                   initial={{ opacity: 0, y: 20 }}
                                    whileInView={{ opacity: 1, y: 0 }}
                                    viewport={{ once: true }}
-                                   transition={{ duration: 0.8 }}
-                                   className="relative overflow-hidden border border-white/10 bg-[#0b0d0f] shadow-[0_35px_100px_rgba(0,0,0,0.4)]"
+                                   transition={{ duration: 0.7 }}
+                                   className="overflow-hidden rounded-2xl border border-[#B8F34A]/15 bg-[#111A16] shadow-[0_30px_80px_rgba(0,0,0,0.3)]"
                               >
-                                   {/* Video Header */}
-
-                                   <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
-                                        <div className="flex items-center gap-2">
-                                             <span className="h-2 w-2 rounded-full bg-slate-500" />
-                                             <span className="text-[9px] uppercase tracking-[0.25em] text-slate-600">
-                                                  Robotic Glove / Prototype
+                                   <div className="flex items-center justify-between border-b border-[#F1F5E9]/10 px-5 py-3">
+                                        <div className="flex items-center gap-3">
+                                             <span className="h-2 w-2 rounded-full bg-[#B8F34A]" />
+                                             <span className="text-[9px] uppercase tracking-[0.25em] text-[#F1F5E9]/35">
+                                                  Prototype Development
                                              </span>
                                         </div>
-
-                                        <span className="text-[9px] text-slate-700">
-                                             VIDEO DOCUMENTATION
+                                        <span className="text-[9px] text-[#F1F5E9]/20">
+                                             VIDEO
                                         </span>
                                    </div>
 
@@ -162,128 +198,268 @@ export default function GloveSlide({ project }: { project?: Project }) {
                                         />
                                    </video>
 
-                                   {/* Video Footer */}
-
-                                   <div className="flex flex-col gap-2 border-t border-white/10 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
-                                        <span className="text-xs text-slate-500">
-                                             Prototype evolution and testing
+                                   <div className="flex items-center justify-between border-t border-[#F1F5E9]/10 px-5 py-3">
+                                        <span className="text-xs text-[#F1F5E9]/40">
+                                             Complete prototype evolution
                                         </span>
-
-                                        <span className="text-[9px] uppercase tracking-[0.25em] text-slate-700">
-                                             Engineering Documentation
+                                        <span className="text-[9px] uppercase tracking-[0.2em] text-[#B8F34A]/60">
+                                             Engineering Record
                                         </span>
                                    </div>
                               </motion.div>
 
                               {/* Achievements */}
-
                               <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                                   <Achievement
-                                        eyebrow="Publication"
-                                        title="Robotics Technology in Hand Rehabilitation"
-                                        detail="Book Chapter · 2024"
-                                   />
+                                   <div className="relative border border-[#F1F5E9]/10 bg-[#172920]/50 p-5">
+                                        <div className="absolute right-4 top-4 h-2 w-2 rounded-full bg-[#B8F34A]" />
+                                        <div className="text-[9px] uppercase tracking-[0.3em] text-[#B8F34A]">
+                                             Published Research
+                                        </div>
+                                        <div className="mt-4 text-lg font-medium">
+                                             Book Chapter
+                                        </div>
+                                        <div className="mt-2 text-xs leading-5 text-[#F1F5E9]/40">
+                                             Research contribution documenting the therapeutic robotic glove project.
+                                        </div>
+                                        <div className="mt-5 text-[9px] uppercase tracking-[0.2em] text-[#F1F5E9]/25">
+                                             Publication
+                                        </div>
+                                   </div>
 
-                                   <Achievement
-                                        eyebrow="Biothon"
-                                        title="2nd Place"
-                                        detail="Biomedical Hackathon"
-                                        highlighted
-                                   />
+                                   <div className="relative border border-[#78BFA3]/20 bg-[#18362D]/70 p-5">
+                                        <div className="flex items-center justify-between">
+                                             <div className="text-[9px] uppercase tracking-[0.3em] text-[#78BFA3]">
+                                                  Biothon
+                                             </div>
+                                             <div className="text-[9px] text-[#78BFA3]/50">
+                                                  2024
+                                             </div>
+                                        </div>
+
+                                        <div className="mt-3 flex items-end gap-4">
+                                             <div className="text-5xl font-semibold leading-none text-[#B8F34A]">
+                                                  02
+                                             </div>
+                                             <div className="pb-1">
+                                                  <div className="text-sm font-medium">
+                                                       Second Place
+                                                  </div>
+                                                  <div className="mt-1 text-[8px] uppercase tracking-[0.15em] text-[#F1F5E9]/35">
+                                                       Biomedical Hackathon
+                                                  </div>
+                                             </div>
+                                        </div>
+
+                                        <div className="mt-5 h-px bg-[#78BFA3]/20" />
+
+                                        <div className="mt-2 text-[9px] text-[#F1F5E9]/25">
+                                             Prototype · Innovation · Healthcare
+                                        </div>
+                                   </div>
                               </div>
-
-                              {/* Technical corner marker */}
-
-                              <div className="pointer-events-none absolute -right-3 -top-3 hidden h-10 w-10 border-r border-t border-slate-500/40 sm:block" />
-                              <div className="pointer-events-none absolute -bottom-3 -left-3 hidden h-10 w-10 border-b border-l border-slate-500/40 sm:block" />
                          </div>
                     </div>
-               </div>
-
-               {/* Footer */}
-
-               <div className="absolute bottom-5 left-6 hidden text-[9px] uppercase tracking-[0.35em] text-slate-700 lg:block">
-                    Therapeutic Robotics / Research / Prototype
-               </div>
-
-               <div className="absolute bottom-5 right-6 hidden text-[9px] uppercase tracking-[0.35em] text-slate-700 lg:block">
-                    {project?.title ?? "Robotic Glove"}
                </div>
           </section>
      );
 }
 
-function Iteration({
-     number,
-     label,
+function FingerMechanism({
+     index,
+     mouse,
 }: {
-     number: string;
-     label: string;
+     index: number;
+     mouse: { x: number; y: number };
 }) {
-     return (
-          <div className="flex shrink-0 flex-col gap-2">
-               <div className="flex h-7 w-7 items-center justify-center border border-slate-600 text-[9px] text-slate-400">
-                    {number}
-               </div>
-               <span className="text-[9px] uppercase tracking-[0.15em] text-slate-600">
-                    {label}
-               </span>
-          </div>
+     const baseY = 38 + index * 40;
+     const baseX = 42;
+     const segmentOne = 105;
+     const segmentTwo = 85;
+     const segmentThree = 65;
+
+     const input = Math.max(0, Math.min(1, 1 - mouse.y));
+     const horizontal = (mouse.x - 0.5) * 2;
+     const response = [0.72, 0.88, 1, 0.88, 0.72][index];
+
+     const flexion = Math.max(
+          0,
+          Math.min(1, input * response + horizontal * 0.12)
      );
-}
 
-function IterationLine() {
-     return <div className="mx-2 mb-5 h-px min-w-5 flex-1 bg-slate-700/60 sm:mx-3" />;
-}
+     const baseAngle = -2;
+     const bendAngle = flexion * 62;
 
-function Achievement({
-     eyebrow,
-     title,
-     detail,
-     highlighted = false,
-}: {
-     eyebrow: string;
-     title: string;
-     detail: string;
-     highlighted?: boolean;
-}) {
+     const angle1 = baseAngle;
+     const angle2 = baseAngle + bendAngle * 0.55;
+     const angle3 = baseAngle + bendAngle;
+
+     const rad1 = (angle1 * Math.PI) / 180;
+     const rad2 = (angle2 * Math.PI) / 180;
+     const rad3 = (angle3 * Math.PI) / 180;
+
+     const joint1 = {
+          x: baseX + Math.cos(rad1) * segmentOne,
+          y: baseY + Math.sin(rad1) * segmentOne,
+     };
+
+     const joint2 = {
+          x: joint1.x + Math.cos(rad2) * segmentTwo,
+          y: joint1.y + Math.sin(rad2) * segmentTwo,
+     };
+
+     const tip = {
+          x: joint2.x + Math.cos(rad3) * segmentThree,
+          y: joint2.y + Math.sin(rad3) * segmentThree,
+     };
+
      return (
-          <motion.div
-               whileHover={{ y: -3 }}
-               transition={{ duration: 0.2 }}
-               className={`relative border p-5 ${
-                    highlighted
-                         ? "border-[#b9a76a]/30 bg-[#b9a76a]/[0.06]"
-                         : "border-white/10 bg-white/[0.025]"
-               }`}
+          <svg
+               className="pointer-events-none absolute inset-0 h-full w-full"
+               viewBox="0 0 600 230"
+               preserveAspectRatio="none"
           >
-               <div className="flex items-center justify-between">
-                    <span
-                         className={`text-[9px] uppercase tracking-[0.3em] ${
-                              highlighted
-                                   ? "text-[#b9a76a]"
-                                   : "text-slate-600"
-                         }`}
-                    >
-                         {eyebrow}
-                    </span>
+               {/* Resting position */}
+               <path
+                    d={`M ${baseX} ${baseY} L ${baseX + segmentOne} ${baseY} L ${baseX + segmentOne + segmentTwo} ${baseY} L ${baseX + segmentOne + segmentTwo + segmentThree} ${baseY}`}
+                    fill="none"
+                    stroke="#F1F5E9"
+                    strokeOpacity="0.035"
+                    strokeWidth="1"
+               />
 
-                    <span
-                         className={`h-1.5 w-1.5 rounded-full ${
-                              highlighted
-                                   ? "bg-[#b9a76a]"
-                                   : "bg-slate-600"
-                         }`}
-                    />
-               </div>
+               {/* Mechanical linkage */}
+               <motion.line
+                    x1={baseX}
+                    y1={baseY}
+                    x2={joint1.x}
+                    y2={joint1.y}
+                    stroke="#B8F34A"
+                    strokeOpacity="0.8"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    animate={{
+                         x2: joint1.x,
+                         y2: joint1.y,
+                    }}
+                    transition={{
+                         type: "spring",
+                         stiffness: 90,
+                         damping: 18,
+                         mass: 0.7,
+                    }}
+               />
 
-               <div className="mt-4 text-sm font-medium leading-5 text-slate-300">
-                    {title}
-               </div>
+               <motion.line
+                    x1={joint1.x}
+                    y1={joint1.y}
+                    x2={joint2.x}
+                    y2={joint2.y}
+                    stroke="#B8F34A"
+                    strokeOpacity="0.8"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    animate={{
+                         x1: joint1.x,
+                         y1: joint1.y,
+                         x2: joint2.x,
+                         y2: joint2.y,
+                    }}
+                    transition={{
+                         type: "spring",
+                         stiffness: 90,
+                         damping: 18,
+                         mass: 0.7,
+                    }}
+               />
 
-               <div className="mt-2 text-[10px] uppercase tracking-[0.15em] text-slate-600">
-                    {detail}
-               </div>
-          </motion.div>
+               <motion.line
+                    x1={joint2.x}
+                    y1={joint2.y}
+                    x2={tip.x}
+                    y2={tip.y}
+                    stroke="#B8F34A"
+                    strokeOpacity="0.8"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    animate={{
+                         x1: joint2.x,
+                         y1: joint2.y,
+                         x2: tip.x,
+                         y2: tip.y,
+                    }}
+                    transition={{
+                         type: "spring",
+                         stiffness: 90,
+                         damping: 18,
+                         mass: 0.7,
+                    }}
+               />
+
+               {/* Base */}
+               <circle
+                    cx={baseX}
+                    cy={baseY}
+                    r="3.5"
+                    fill="#1D3028"
+                    stroke="#B8F34A"
+                    strokeWidth="1.5"
+               />
+
+               {/* First joint */}
+               <motion.circle
+                    cx={joint1.x}
+                    cy={joint1.y}
+                    r="4"
+                    fill="#1D3028"
+                    stroke="#B8F34A"
+                    strokeWidth="1.5"
+                    animate={{
+                         cx: joint1.x,
+                         cy: joint1.y,
+                    }}
+                    transition={{
+                         type: "spring",
+                         stiffness: 90,
+                         damping: 18,
+                    }}
+               />
+
+               {/* Second joint */}
+               <motion.circle
+                    cx={joint2.x}
+                    cy={joint2.y}
+                    r="4"
+                    fill="#1D3028"
+                    stroke="#B8F34A"
+                    strokeWidth="1.5"
+                    animate={{
+                         cx: joint2.x,
+                         cy: joint2.y,
+                    }}
+                    transition={{
+                         type: "spring",
+                         stiffness: 90,
+                         damping: 18,
+                    }}
+               />
+
+               {/* Actuator / fingertip */}
+               <motion.circle
+                    cx={tip.x}
+                    cy={tip.y}
+                    r="5"
+                    fill="#B8F34A"
+                    animate={{
+                         cx: tip.x,
+                         cy: tip.y,
+                         scale: 1 + flexion * 0.15,
+                    }}
+                    transition={{
+                         type: "spring",
+                         stiffness: 90,
+                         damping: 18,
+                    }}
+               />
+          </svg>
      );
 }
