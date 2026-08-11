@@ -8,7 +8,7 @@ import { pwc } from "./experience/pwc";
 import { skills } from "./skills/skills";
 
 export const projects = [
-  shortify, inventech, therapeuticGlove, digitalLab
+  inventech, shortify, therapeuticGlove, digitalLab
 ];
 
 export const experiences = [
