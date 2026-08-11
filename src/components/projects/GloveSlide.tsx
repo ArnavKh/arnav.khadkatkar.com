@@ -111,7 +111,7 @@ export default function GloveSlide({ project }: { project?: Project }) {
                                         </div>
                                    </div>
 
-                                   <div className="relative h-60 overflow-hidden border border-[#B8F34A]/15 bg-[#172920]/60">
+                                   <div className="relative h-72 overflow-hidden border border-[#B8F34A]/15 bg-[#172920]/60">
                                         <div className="absolute left-4 top-4 text-[7px] uppercase tracking-[0.25em] text-[#F1F5E9]/20">
                                              Control
                                         </div>
@@ -271,27 +271,30 @@ function FingerMechanism({
      index: number;
      mouse: { x: number; y: number };
 }) {
-     const baseY = 38 + index * 40;
+     const baseY = 38 + index * 48;
      const baseX = 42;
-     const segmentOne = 105;
-     const segmentTwo = 85;
-     const segmentThree = 65;
 
-     const input = Math.max(0, Math.min(1, 1 - mouse.y));
-     const horizontal = (mouse.x - 0.5) * 2;
+     const baseLengths = [
+          [88, 72, 55],
+          [105, 82, 62],
+          [118, 92, 70],
+          [105, 82, 62],
+          [88, 70, 52],
+     ];
+
+     const contraction = Math.max(0, Math.min(1, (0.5 - mouse.x) * 2));
+     const segmentOne = baseLengths[index][0] * (1 - contraction * 0.05);
+     const segmentTwo = baseLengths[index][1] * (1 - contraction * 0.38);
+     const segmentThree = baseLengths[index][2] * (1 - contraction * 0.62);
+
+     const input = Math.max(0, Math.min(1, mouse.y));
      const response = [0.72, 0.88, 1, 0.88, 0.72][index];
-
-     const flexion = Math.max(
-          0,
-          Math.min(1, input * response + horizontal * 0.12)
-     );
-
-     const baseAngle = -2;
+     const flexion = input * response;
      const bendAngle = flexion * 62;
 
-     const angle1 = baseAngle;
-     const angle2 = baseAngle + bendAngle * 0.55;
-     const angle3 = baseAngle + bendAngle;
+     const angle1 = -2;
+     const angle2 = -2 + bendAngle * 0.55;
+     const angle3 = -2 + bendAngle;
 
      const rad1 = (angle1 * Math.PI) / 180;
      const rad2 = (angle2 * Math.PI) / 180;
@@ -313,12 +316,8 @@ function FingerMechanism({
      };
 
      return (
-          <svg
-               className="pointer-events-none absolute inset-0 h-full w-full"
-               viewBox="0 0 600 230"
-               preserveAspectRatio="none"
-          >
-               {/* Resting position */}
+          <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 600 320" preserveAspectRatio="none">
+               {/* Resting structure */}
                <path
                     d={`M ${baseX} ${baseY} L ${baseX + segmentOne} ${baseY} L ${baseX + segmentOne + segmentTwo} ${baseY} L ${baseX + segmentOne + segmentTwo + segmentThree} ${baseY}`}
                     fill="none"
@@ -327,7 +326,7 @@ function FingerMechanism({
                     strokeWidth="1"
                />
 
-               {/* Mechanical linkage */}
+               {/* Segment 1 */}
                <motion.line
                     x1={baseX}
                     y1={baseY}
@@ -337,18 +336,11 @@ function FingerMechanism({
                     strokeOpacity="0.8"
                     strokeWidth="2.5"
                     strokeLinecap="round"
-                    animate={{
-                         x2: joint1.x,
-                         y2: joint1.y,
-                    }}
-                    transition={{
-                         type: "spring",
-                         stiffness: 90,
-                         damping: 18,
-                         mass: 0.7,
-                    }}
+                    animate={{ x2: joint1.x, y2: joint1.y }}
+                    transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.7 }}
                />
 
+               {/* Segment 2 */}
                <motion.line
                     x1={joint1.x}
                     y1={joint1.y}
@@ -358,20 +350,11 @@ function FingerMechanism({
                     strokeOpacity="0.8"
                     strokeWidth="2.5"
                     strokeLinecap="round"
-                    animate={{
-                         x1: joint1.x,
-                         y1: joint1.y,
-                         x2: joint2.x,
-                         y2: joint2.y,
-                    }}
-                    transition={{
-                         type: "spring",
-                         stiffness: 90,
-                         damping: 18,
-                         mass: 0.7,
-                    }}
+                    animate={{ x1: joint1.x, y1: joint1.y, x2: joint2.x, y2: joint2.y }}
+                    transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.7 }}
                />
 
+               {/* Segment 3 */}
                <motion.line
                     x1={joint2.x}
                     y1={joint2.y}
@@ -381,31 +364,14 @@ function FingerMechanism({
                     strokeOpacity="0.8"
                     strokeWidth="2.5"
                     strokeLinecap="round"
-                    animate={{
-                         x1: joint2.x,
-                         y1: joint2.y,
-                         x2: tip.x,
-                         y2: tip.y,
-                    }}
-                    transition={{
-                         type: "spring",
-                         stiffness: 90,
-                         damping: 18,
-                         mass: 0.7,
-                    }}
+                    animate={{ x1: joint2.x, y1: joint2.y, x2: tip.x, y2: tip.y }}
+                    transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.7 }}
                />
 
                {/* Base */}
-               <circle
-                    cx={baseX}
-                    cy={baseY}
-                    r="3.5"
-                    fill="#1D3028"
-                    stroke="#B8F34A"
-                    strokeWidth="1.5"
-               />
+               <circle cx={baseX} cy={baseY} r="3.5" fill="#1D3028" stroke="#B8F34A" strokeWidth="1.5" />
 
-               {/* First joint */}
+               {/* Joint 1 */}
                <motion.circle
                     cx={joint1.x}
                     cy={joint1.y}
@@ -413,18 +379,11 @@ function FingerMechanism({
                     fill="#1D3028"
                     stroke="#B8F34A"
                     strokeWidth="1.5"
-                    animate={{
-                         cx: joint1.x,
-                         cy: joint1.y,
-                    }}
-                    transition={{
-                         type: "spring",
-                         stiffness: 90,
-                         damping: 18,
-                    }}
+                    animate={{ cx: joint1.x, cy: joint1.y }}
+                    transition={{ type: "spring", stiffness: 90, damping: 18 }}
                />
 
-               {/* Second joint */}
+               {/* Joint 2 */}
                <motion.circle
                     cx={joint2.x}
                     cy={joint2.y}
@@ -432,33 +391,18 @@ function FingerMechanism({
                     fill="#1D3028"
                     stroke="#B8F34A"
                     strokeWidth="1.5"
-                    animate={{
-                         cx: joint2.x,
-                         cy: joint2.y,
-                    }}
-                    transition={{
-                         type: "spring",
-                         stiffness: 90,
-                         damping: 18,
-                    }}
+                    animate={{ cx: joint2.x, cy: joint2.y }}
+                    transition={{ type: "spring", stiffness: 90, damping: 18 }}
                />
 
-               {/* Actuator / fingertip */}
+               {/* Fingertip / actuator */}
                <motion.circle
                     cx={tip.x}
                     cy={tip.y}
                     r="5"
                     fill="#B8F34A"
-                    animate={{
-                         cx: tip.x,
-                         cy: tip.y,
-                         scale: 1 + flexion * 0.15,
-                    }}
-                    transition={{
-                         type: "spring",
-                         stiffness: 90,
-                         damping: 18,
-                    }}
+                    animate={{ cx: tip.x, cy: tip.y, scale: 1 + flexion * 0.15 }}
+                    transition={{ type: "spring", stiffness: 90, damping: 18 }}
                />
           </svg>
      );
