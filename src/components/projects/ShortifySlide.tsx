@@ -15,29 +15,26 @@ export default function ShortifySlide({
           >
                {/* Pink Brand Background */}
 
-               <div className="absolute inset-y-0 left-0 w-full bg-[#f95391] lg:w-[48%]" />
+               <div className="pointer-events-none absolute inset-0 hidden lg:grid lg:grid-cols-2">
+                    {/* Left 50% */}
 
-               <div
-                    className="absolute inset-y-0 left-0 w-full bg-repeat opacity-40 lg:w-[48%]"
-                    style={{
-                         backgroundImage:
-                              "url('/images/projects/shortify/doodles.svg')",
-                         backgroundSize: "360px",
-                    }}
-               />
+                    <div className="bg-linear-to-br from-[#f54b9a] via-[#f95f8b] to-[#ff7377]" />
+                    
+                    <div
+                         className="absolute inset-0 bg-repeat opacity-100"
+                         style={{
+                              backgroundImage:
+                                   "url('/projects/shortify/DoodleGraphic.svg')",
+                         }}
+                    />
 
-               <div className="absolute inset-y-0 left-0 w-full bg-linear-to-br from-[#f54b9a]/90 via-[#f95f8b]/70 to-[#ff7377]/80 lg:w-[48%]" />
+                    {/* Right 50% */}
 
-               {/* Subtle Doodle Layer */}
+                    <div className="relative overflow-hidden bg-[#111111]">
 
-               <div
-                    className="pointer-events-none absolute inset-y-0 left-0 w-full bg-repeat opacity-35 lg:w-[48%]"
-                    style={{
-                         backgroundImage:
-                              "url('/images/projects/shortify/doodles.svg')",
-                         backgroundSize: "360px",
-                    }}
-               />
+
+                    </div>
+               </div>
 
                {/* Right Side Ambient Glow */}
 
@@ -47,7 +44,7 @@ export default function ShortifySlide({
 
                <div className="relative z-10 mx-auto flex min-h-screen max-w-[1500px] items-center px-6 py-20 lg:px-10">
 
-                    <div className="grid w-full overflow-hidden rounded-[2rem] border border-white/10 bg-[#0d0d0d] shadow-[0_30px_120px_rgba(0,0,0,0.35)] lg:grid-cols-[0.85fr_1.15fr]">
+                    <div className="grid w-full overflow-hidden rounded-[2rem] border border-white/10 bg-[#0d0d0d] shadow-[0_30px_120px_rgba(0,0,0,0.35)] lg:grid-cols-2">
 
                          {/* LEFT — Brand */}
 
@@ -55,14 +52,7 @@ export default function ShortifySlide({
 
                               {/* Doodle Background */}
 
-                              <div
-                                   className="pointer-events-none absolute inset-0 bg-repeat opacity-[0.055]"
-                                   style={{
-                                        backgroundImage:
-                                             "url('/images/projects/shortify/doodles.svg')",
-                                        backgroundSize: "300px",
-                                   }}
-                              />
+
 
                               <div className="relative z-10 flex h-full flex-col">
 
@@ -71,7 +61,7 @@ export default function ShortifySlide({
                                    <div className="flex items-center gap-4">
 
                                         <img
-                                             src="/images/projects/shortify/logo.png"
+                                             src="/projects/shortify/Logo.png"
                                              alt="Shortify"
                                              className="h-14 w-14 object-contain"
                                         />
@@ -184,6 +174,13 @@ export default function ShortifySlide({
 
                          <div className="relative flex min-h-[600px] items-center justify-center overflow-hidden border-t border-white/10 bg-[#111111] px-6 py-12 lg:border-l lg:border-t-0 lg:px-12">
 
+                              <div
+                                   className="pointer-events-none absolute inset-0 bg-repeat opacity-20"
+                                   style={{
+                                        backgroundImage:
+                                             "url('/projects/shortify/DoodleGraphic.svg')",
+                                   }}
+                              />
                               {/* Product Heading */}
 
                               <div className="absolute left-8 top-8 lg:left-12 lg:top-10">
@@ -252,7 +249,7 @@ export default function ShortifySlide({
                                              className="aspect-video w-full bg-black object-cover"
                                         >
                                              <source
-                                                  src="/videos/shortify-demo.mp4"
+                                                  src="/projects/shortify/Shortify_withCC.mp4"
                                                   type="video/mp4"
                                              />
                                         </video>
