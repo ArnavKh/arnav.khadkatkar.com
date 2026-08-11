@@ -264,6 +264,18 @@ export default function GloveSlide({ project }: { project?: Project }) {
      );
 }
 
+const FINGER_LENGTHS = [
+     [88, 72, 55],
+     [105, 82, 62],
+     [118, 92, 70],
+     [105, 82, 62],
+     [88, 70, 52],
+];
+
+const FINGER_RESPONSE = [0.72, 0.88, 1, 0.88, 0.72];
+const SPRING = { type: "spring" as const, stiffness: 90, damping: 18, mass: 0.7 };
+const DEG_TO_RAD = Math.PI / 180;
+
 function FingerMechanism({
      index,
      mouse,
@@ -271,34 +283,22 @@ function FingerMechanism({
      index: number;
      mouse: { x: number; y: number };
 }) {
-     const baseY = 38 + index * 48;
      const baseX = 42;
-
-     const baseLengths = [
-          [88, 72, 55],
-          [105, 82, 62],
-          [118, 92, 70],
-          [105, 82, 62],
-          [88, 70, 52],
-     ];
+     const baseY = 38 + index * 48;
+     const [baseOne, baseTwo, baseThree] = FINGER_LENGTHS[index];
 
      const contraction = Math.max(0, Math.min(1, (0.5 - mouse.x) * 2));
-     const segmentOne = baseLengths[index][0] * (1 - contraction * 0.05);
-     const segmentTwo = baseLengths[index][1] * (1 - contraction * 0.38);
-     const segmentThree = baseLengths[index][2] * (1 - contraction * 0.62);
+     const segmentOne = baseOne * (1 - contraction * 0.05);
+     const segmentTwo = baseTwo * (1 - contraction * 0.38);
+     const segmentThree = baseThree * (1 - contraction * 0.62);
 
      const input = Math.max(0, Math.min(1, mouse.y));
-     const response = [0.72, 0.88, 1, 0.88, 0.72][index];
-     const flexion = input * response;
+     const flexion = input * FINGER_RESPONSE[index];
      const bendAngle = flexion * 62;
 
-     const angle1 = -2;
-     const angle2 = -2 + bendAngle * 0.55;
-     const angle3 = -2 + bendAngle;
-
-     const rad1 = (angle1 * Math.PI) / 180;
-     const rad2 = (angle2 * Math.PI) / 180;
-     const rad3 = (angle3 * Math.PI) / 180;
+     const rad1 = -2 * DEG_TO_RAD;
+     const rad2 = (-2 + bendAngle * 0.55) * DEG_TO_RAD;
+     const rad3 = (-2 + bendAngle) * DEG_TO_RAD;
 
      const joint1 = {
           x: baseX + Math.cos(rad1) * segmentOne,
@@ -315,94 +315,42 @@ function FingerMechanism({
           y: joint2.y + Math.sin(rad3) * segmentThree,
      };
 
+     const circlePath = (x: number, y: number, r: number) =>
+          `M ${x - r} ${y} a ${r} ${r} 0 1 0 ${r * 2} 0 a ${r} ${r} 0 1 0 ${-r * 2} 0`;
+
+     const mechanismPath = `
+          M ${baseX} ${baseY}
+          L ${joint1.x} ${joint1.y}
+          L ${joint2.x} ${joint2.y}
+          L ${tip.x} ${tip.y}
+          ${circlePath(baseX, baseY, 3.5)}
+          ${circlePath(joint1.x, joint1.y, 4)}
+          ${circlePath(joint2.x, joint2.y, 4)}
+          ${circlePath(tip.x, tip.y, 5)}
+     `;
+
+     const restingPath = `
+          M ${baseX} ${baseY}
+          L ${baseX + baseOne} ${baseY}
+          L ${baseX + baseOne + baseTwo} ${baseY}
+          L ${baseX + baseOne + baseTwo + baseThree} ${baseY}
+     `;
+
      return (
           <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 600 320" preserveAspectRatio="none">
-               {/* Resting structure */}
-               <path
-                    d={`M ${baseX} ${baseY} L ${baseX + segmentOne} ${baseY} L ${baseX + segmentOne + segmentTwo} ${baseY} L ${baseX + segmentOne + segmentTwo + segmentThree} ${baseY}`}
-                    fill="none"
-                    stroke="#F1F5E9"
-                    strokeOpacity="0.035"
-                    strokeWidth="1"
-               />
+               <path d={restingPath} fill="none" stroke="#F1F5E9" strokeOpacity="0.035" strokeWidth="1" />
 
-               {/* Segment 1 */}
-               <motion.line
-                    x1={baseX}
-                    y1={baseY}
-                    x2={joint1.x}
-                    y2={joint1.y}
-                    stroke="#B8F34A"
-                    strokeOpacity="0.8"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    animate={{ x2: joint1.x, y2: joint1.y }}
-                    transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.7 }}
-               />
-
-               {/* Segment 2 */}
-               <motion.line
-                    x1={joint1.x}
-                    y1={joint1.y}
-                    x2={joint2.x}
-                    y2={joint2.y}
-                    stroke="#B8F34A"
-                    strokeOpacity="0.8"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    animate={{ x1: joint1.x, y1: joint1.y, x2: joint2.x, y2: joint2.y }}
-                    transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.7 }}
-               />
-
-               {/* Segment 3 */}
-               <motion.line
-                    x1={joint2.x}
-                    y1={joint2.y}
-                    x2={tip.x}
-                    y2={tip.y}
-                    stroke="#B8F34A"
-                    strokeOpacity="0.8"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    animate={{ x1: joint2.x, y1: joint2.y, x2: tip.x, y2: tip.y }}
-                    transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.7 }}
-               />
-
-               {/* Base */}
-               <circle cx={baseX} cy={baseY} r="3.5" fill="#1D3028" stroke="#B8F34A" strokeWidth="1.5" />
-
-               {/* Joint 1 */}
-               <motion.circle
-                    cx={joint1.x}
-                    cy={joint1.y}
-                    r="4"
+               <motion.path
+                    d={mechanismPath}
                     fill="#1D3028"
                     stroke="#B8F34A"
-                    strokeWidth="1.5"
-                    animate={{ cx: joint1.x, cy: joint1.y }}
-                    transition={{ type: "spring", stiffness: 90, damping: 18 }}
-               />
-
-               {/* Joint 2 */}
-               <motion.circle
-                    cx={joint2.x}
-                    cy={joint2.y}
-                    r="4"
-                    fill="#1D3028"
-                    stroke="#B8F34A"
-                    strokeWidth="1.5"
-                    animate={{ cx: joint2.x, cy: joint2.y }}
-                    transition={{ type: "spring", stiffness: 90, damping: 18 }}
-               />
-
-               {/* Fingertip / actuator */}
-               <motion.circle
-                    cx={tip.x}
-                    cy={tip.y}
-                    r="5"
-                    fill="#B8F34A"
-                    animate={{ cx: tip.x, cy: tip.y, scale: 1 + flexion * 0.15 }}
-                    transition={{ type: "spring", stiffness: 90, damping: 18 }}
+                    strokeOpacity="0.8"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    fillRule="evenodd"
+                    animate={{ d: mechanismPath }}
+                    transition={SPRING}
                />
           </svg>
      );
