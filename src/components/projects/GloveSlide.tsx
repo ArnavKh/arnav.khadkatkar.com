@@ -6,292 +6,284 @@ export default function GloveSlide({ project }: { project?: Project }) {
           <section
                id={project?.id ?? "robotic-glove"}
                data-slide
-               className="relative min-h-screen overflow-hidden bg-[#020617] text-white"
+               className="relative min-h-screen overflow-hidden bg-[#111315] text-[#e8e6df]"
           >
                {/* Background */}
 
-               <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(34,211,238,0.12),transparent_45%)]" />
+               <div className="pointer-events-none absolute inset-0">
+                    <div
+                         className="absolute inset-0 opacity-[0.12]"
+                         style={{
+                              backgroundImage:
+                                   "linear-gradient(rgba(232,230,223,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(232,230,223,0.08) 1px, transparent 1px)",
+                              backgroundSize: "48px 48px",
+                         }}
+                    />
 
-               <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[40px_40px]" />
+                    <div className="absolute -right-40 top-1/2 h-[700px] w-[700px] -translate-y-1/2 rounded-full border border-slate-400/10" />
+                    <div className="absolute -right-10 top-1/2 h-[500px] w-[500px] -translate-y-1/2 rounded-full border border-slate-400/10" />
+                    <div className="absolute left-[35%] top-[15%] h-72 w-72 rounded-full bg-slate-400/5 blur-[120px]" />
+               </div>
 
-               {/* Floating Publication Badge */}
+               {/* Main */}
 
-               <motion.div
-                    animate={{
-                         y: [0, -10, 0],
-                    }}
-                    transition={{
-                         duration: 5,
-                         repeat: Infinity,
-                         ease: "easeInOut",
-                    }}
-                    className="absolute right-10 top-10 z-20 rounded-2xl border border-cyan-400/20 bg-cyan-400/5 p-5 backdrop-blur-xl"
-               >
-                    <div className="text-xs uppercase tracking-[0.2em] text-cyan-400">
-                         Publication
-                    </div>
+               <div className="relative z-10 mx-auto flex min-h-screen max-w-[1500px] items-center px-6 py-20 lg:px-10">
+                    <div className="grid w-full gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
+                         {/* Left */}
 
-                    <div className="mt-3 text-lg font-medium">
-                         Robotics Technology
-                         <br />
-                         in Hand Rehabilitation
-                    </div>
-
-                    <div className="mt-2 text-sm text-slate-400">
-                         Book Chapter • 2024
-                    </div>
-               </motion.div>
-
-               <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-8">
-
-                    <div className="grid w-full gap-20 lg:grid-cols-[0.85fr_1.15fr]">
-
-                         {/* Left Side */}
-
-                         <div>
-
-                              <div className="mb-4 text-sm uppercase tracking-[0.3em] text-cyan-400">
-                                   Healthcare Robotics
+                         <div className="flex flex-col">
+                              <div className="flex items-center gap-3">
+                                   <div className="h-px w-10 bg-slate-500" />
+                                   <span className="text-[10px] uppercase tracking-[0.35em] text-slate-500">
+                                        Healthcare Robotics
+                                   </span>
                               </div>
 
-                              <h2 className="text-6xl font-semibold lg:text-7xl">
-                                   Therapeutic
-                                   <br />
-                                   Robotic Glove
-                              </h2>
+                              <div className="mt-7">
+                                   <h2 className="text-5xl font-semibold tracking-[-0.04em] sm:text-6xl lg:text-7xl">
+                                        Therapeutic
+                                        <br />
+                                        <span className="text-slate-500">
+                                             Robotic Glove
+                                        </span>
+                                   </h2>
 
-                              <p className="mt-6 max-w-lg text-lg text-slate-300">
-                                   A wearable rehabilitation device
-                                   designed to assist hand recovery
-                                   after stroke, paralysis and injury
-                                   through robotic-assisted movement.
-                              </p>
+                                   <div className="mt-6 h-px w-24 bg-slate-600" />
 
-                              {/* Timeline */}
+                                   <p className="mt-7 max-w-lg text-lg leading-8 text-slate-300">
+                                        A wearable rehabilitation system
+                                        designed to assist hand movement
+                                        through controlled robotic actuation.
+                                   </p>
 
-                              <div className="mt-14 space-y-8">
-
-                                   <div className="flex gap-4">
-                                        <div className="mt-1 h-3 w-3 rounded-full bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.8)]" />
-
-                                        <div>
-                                             <div className="font-medium">
-                                                  Research
-                                             </div>
-
-                                             <div className="text-sm text-slate-500">
-                                                  Rehabilitation robotics
-                                                  study and technology
-                                                  analysis.
-                                             </div>
-                                        </div>
-                                   </div>
-
-                                   <div className="flex gap-4">
-                                        <div className="mt-1 h-3 w-3 rounded-full bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.8)]" />
-
-                                        <div>
-                                             <div className="font-medium">
-                                                  Prototype Development
-                                             </div>
-
-                                             <div className="text-sm text-slate-500">
-                                                  Hardware design,
-                                                  actuation system and
-                                                  control logic.
-                                             </div>
-                                        </div>
-                                   </div>
-
-                                   <div className="flex gap-4">
-                                        <div className="mt-1 h-3 w-3 rounded-full bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.8)]" />
-
-                                        <div>
-                                             <div className="font-medium">
-                                                  Publication
-                                             </div>
-
-                                             <div className="text-sm text-slate-500">
-                                                  Technical documentation
-                                                  and book chapter
-                                                  contribution.
-                                             </div>
-                                        </div>
-                                   </div>
-
+                                   <p className="mt-4 max-w-lg text-sm leading-7 text-slate-500">
+                                        The project explored the combination
+                                        of wearable mechanics, servo-based
+                                        actuation and embedded control to
+                                        create an accessible approach to
+                                        assisted hand rehabilitation.
+                                   </p>
                               </div>
 
+                              {/* Project Metadata */}
+
+                              <div className="mt-9 flex flex-wrap gap-x-7 gap-y-3 text-[10px] uppercase tracking-[0.2em] text-slate-500">
+                                   <span>Research</span>
+                                   <span>Hardware</span>
+                                   <span>Rehabilitation</span>
+                                   <span>Prototype</span>
+                              </div>
+
+                              {/* Development */}
+
+                              <div className="mt-10 border-t border-white/10 pt-7">
+                                   <div className="text-[10px] uppercase tracking-[0.3em] text-slate-600">
+                                        Prototype Evolution
+                                   </div>
+
+                                   <div className="mt-5 flex items-center">
+                                        <Iteration number="01" label="Concept" />
+                                        <IterationLine />
+                                        <Iteration number="02" label="Prototype" />
+                                        <IterationLine />
+                                        <Iteration number="03" label="Testing" />
+                                        <IterationLine />
+                                        <Iteration number="04" label="Iteration" />
+                                   </div>
+                              </div>
+
+                              {/* Tech */}
+
+                              <div className="mt-9 flex flex-wrap gap-2">
+                                   {project?.techStack?.map((tech) => (
+                                        <span
+                                             key={tech}
+                                             className="border border-white/10 px-3 py-1.5 text-xs text-slate-500"
+                                        >
+                                             {tech}
+                                        </span>
+                                   ))}
+                              </div>
                          </div>
 
-                         {/* Right Side */}
+                         {/* Right */}
 
-                         <div className="relative flex items-center justify-center">
+                         <div className="relative">
+                              {/* Video label */}
 
-                              {/* Recovery Metrics */}
-
-                              <motion.div
-                                   animate={{
-                                        y: [0, -6, 0],
-                                   }}
-                                   transition={{
-                                        duration: 4,
-                                        repeat: Infinity,
-                                   }}
-                                   className="absolute right-0 top-20 z-20 rounded-2xl border border-cyan-400/10 bg-cyan-400/5 p-5 backdrop-blur-xl"
-                              >
-                                   <div className="text-sm text-slate-400">
-                                        Recovery Metrics
+                              <div className="mb-4 flex items-end justify-between">
+                                   <div>
+                                        <div className="text-[10px] uppercase tracking-[0.35em] text-slate-600">
+                                             Prototype Documentation
+                                        </div>
+                                        <div className="mt-2 text-sm text-slate-400">
+                                             From concept to working mechanism
+                                        </div>
                                    </div>
 
-                                   <div className="mt-4 space-y-3">
+                                   <div className="hidden text-[10px] uppercase tracking-[0.2em] text-slate-600 sm:block">
+                                        Development / 01—04
+                                   </div>
+                              </div>
 
-                                        <div>
-                                             <div className="text-xs text-slate-500">
-                                                  Grip Strength
-                                             </div>
+                              {/* Video */}
 
-                                             <div className="text-2xl font-semibold text-cyan-300">
-                                                  +34%
-                                             </div>
+                              <motion.div
+                                   initial={{ opacity: 0, y: 25 }}
+                                   whileInView={{ opacity: 1, y: 0 }}
+                                   viewport={{ once: true }}
+                                   transition={{ duration: 0.8 }}
+                                   className="relative overflow-hidden border border-white/10 bg-[#0b0d0f] shadow-[0_35px_100px_rgba(0,0,0,0.4)]"
+                              >
+                                   {/* Video Header */}
+
+                                   <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+                                        <div className="flex items-center gap-2">
+                                             <span className="h-2 w-2 rounded-full bg-slate-500" />
+                                             <span className="text-[9px] uppercase tracking-[0.25em] text-slate-600">
+                                                  Robotic Glove / Prototype
+                                             </span>
                                         </div>
 
-                                        <div>
-                                             <div className="text-xs text-slate-500">
-                                                  Range of Motion
-                                             </div>
+                                        <span className="text-[9px] text-slate-700">
+                                             VIDEO DOCUMENTATION
+                                        </span>
+                                   </div>
 
-                                             <div className="text-2xl font-semibold text-cyan-300">
-                                                  +27%
-                                             </div>
-                                        </div>
+                                   <video
+                                        controls
+                                        muted
+                                        playsInline
+                                        className="aspect-video w-full bg-black object-cover"
+                                   >
+                                        <source
+                                             src="/projects/robotic-glove/prototype-evolution.mp4"
+                                             type="video/mp4"
+                                        />
+                                   </video>
 
+                                   {/* Video Footer */}
+
+                                   <div className="flex flex-col gap-2 border-t border-white/10 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
+                                        <span className="text-xs text-slate-500">
+                                             Prototype evolution and testing
+                                        </span>
+
+                                        <span className="text-[9px] uppercase tracking-[0.25em] text-slate-700">
+                                             Engineering Documentation
+                                        </span>
                                    </div>
                               </motion.div>
 
-                              {/* Blueprint */}
+                              {/* Achievements */}
 
-                              <div className="relative h-[550px] w-[550px]">
-
-                                   <svg
-                                        className="absolute inset-0 h-full w-full"
-                                        viewBox="0 0 550 550"
-                                   >
-
-                                        {/* Connections */}
-
-                                        <path
-                                             d="M275 360 L120 160"
-                                             stroke="rgba(34,211,238,0.25)"
-                                             strokeWidth="2"
-                                        />
-
-                                        <path
-                                             d="M275 360 L200 120"
-                                             stroke="rgba(34,211,238,0.25)"
-                                             strokeWidth="2"
-                                        />
-
-                                        <path
-                                             d="M275 360 L275 90"
-                                             stroke="rgba(34,211,238,0.25)"
-                                             strokeWidth="2"
-                                        />
-
-                                        <path
-                                             d="M275 360 L350 120"
-                                             stroke="rgba(34,211,238,0.25)"
-                                             strokeWidth="2"
-                                        />
-
-                                        <path
-                                             d="M275 360 L430 160"
-                                             stroke="rgba(34,211,238,0.25)"
-                                             strokeWidth="2"
-                                        />
-
-                                   </svg>
-
-                                   {/* Palm */}
-
-                                   <motion.div
-                                        animate={{
-                                             boxShadow: [
-                                                  "0 0 30px rgba(34,211,238,0.15)",
-                                                  "0 0 60px rgba(34,211,238,0.35)",
-                                                  "0 0 30px rgba(34,211,238,0.15)",
-                                             ],
-                                        }}
-                                        transition={{
-                                             duration: 4,
-                                             repeat: Infinity,
-                                        }}
-                                        className="absolute left-1/2 top-[65%] h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-400/30 bg-cyan-400/10"
+                              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                                   <Achievement
+                                        eyebrow="Publication"
+                                        title="Robotics Technology in Hand Rehabilitation"
+                                        detail="Book Chapter · 2024"
                                    />
 
-                                   {/* Finger Nodes */}
-
-                                   {[
-                                        { x: 120, y: 160 },
-                                        { x: 200, y: 120 },
-                                        { x: 275, y: 90 },
-                                        { x: 350, y: 120 },
-                                        { x: 430, y: 160 },
-                                   ].map((node, index) => (
-                                        <div
-                                             key={index}
-                                             className="absolute"
-                                             style={{
-                                                  left: node.x,
-                                                  top: node.y,
-                                             }}
-                                        >
-                                             <motion.div
-                                                  animate={{
-                                                       scale: [
-                                                            1,
-                                                            1.8,
-                                                            1,
-                                                       ],
-                                                       opacity: [
-                                                            0.8,
-                                                            0,
-                                                            0.8,
-                                                       ],
-                                                  }}
-                                                  transition={{
-                                                       duration:
-                                                            2 +
-                                                            index *
-                                                            0.3,
-                                                       repeat:
-                                                            Infinity,
-                                                  }}
-                                                  className="absolute h-12 w-12 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-400/20"
-                                             />
-
-                                             <div className="h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400 shadow-[0_0_25px_rgba(34,211,238,1)]" />
-                                        </div>
-                                   ))}
-
-                                   {/* Central Label */}
-
-                                   <div className="absolute left-1/2 top-[65%] -translate-x-1/2 translate-y-20 text-center">
-                                        <div className="text-sm uppercase tracking-[0.3em] text-cyan-400">
-                                             Neural Motion
-                                        </div>
-
-                                        <div className="mt-2 text-slate-400">
-                                             Rehabilitation Assistance System
-                                        </div>
-                                   </div>
-
+                                   <Achievement
+                                        eyebrow="Biothon"
+                                        title="2nd Place"
+                                        detail="Biomedical Hackathon"
+                                        highlighted
+                                   />
                               </div>
 
+                              {/* Technical corner marker */}
+
+                              <div className="pointer-events-none absolute -right-3 -top-3 hidden h-10 w-10 border-r border-t border-slate-500/40 sm:block" />
+                              <div className="pointer-events-none absolute -bottom-3 -left-3 hidden h-10 w-10 border-b border-l border-slate-500/40 sm:block" />
                          </div>
-
                     </div>
+               </div>
 
+               {/* Footer */}
+
+               <div className="absolute bottom-5 left-6 hidden text-[9px] uppercase tracking-[0.35em] text-slate-700 lg:block">
+                    Therapeutic Robotics / Research / Prototype
+               </div>
+
+               <div className="absolute bottom-5 right-6 hidden text-[9px] uppercase tracking-[0.35em] text-slate-700 lg:block">
+                    {project?.title ?? "Robotic Glove"}
                </div>
           </section>
+     );
+}
+
+function Iteration({
+     number,
+     label,
+}: {
+     number: string;
+     label: string;
+}) {
+     return (
+          <div className="flex shrink-0 flex-col gap-2">
+               <div className="flex h-7 w-7 items-center justify-center border border-slate-600 text-[9px] text-slate-400">
+                    {number}
+               </div>
+               <span className="text-[9px] uppercase tracking-[0.15em] text-slate-600">
+                    {label}
+               </span>
+          </div>
+     );
+}
+
+function IterationLine() {
+     return <div className="mx-2 mb-5 h-px min-w-5 flex-1 bg-slate-700/60 sm:mx-3" />;
+}
+
+function Achievement({
+     eyebrow,
+     title,
+     detail,
+     highlighted = false,
+}: {
+     eyebrow: string;
+     title: string;
+     detail: string;
+     highlighted?: boolean;
+}) {
+     return (
+          <motion.div
+               whileHover={{ y: -3 }}
+               transition={{ duration: 0.2 }}
+               className={`relative border p-5 ${
+                    highlighted
+                         ? "border-[#b9a76a]/30 bg-[#b9a76a]/[0.06]"
+                         : "border-white/10 bg-white/[0.025]"
+               }`}
+          >
+               <div className="flex items-center justify-between">
+                    <span
+                         className={`text-[9px] uppercase tracking-[0.3em] ${
+                              highlighted
+                                   ? "text-[#b9a76a]"
+                                   : "text-slate-600"
+                         }`}
+                    >
+                         {eyebrow}
+                    </span>
+
+                    <span
+                         className={`h-1.5 w-1.5 rounded-full ${
+                              highlighted
+                                   ? "bg-[#b9a76a]"
+                                   : "bg-slate-600"
+                         }`}
+                    />
+               </div>
+
+               <div className="mt-4 text-sm font-medium leading-5 text-slate-300">
+                    {title}
+               </div>
+
+               <div className="mt-2 text-[10px] uppercase tracking-[0.15em] text-slate-600">
+                    {detail}
+               </div>
+          </motion.div>
      );
 }

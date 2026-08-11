@@ -302,8 +302,6 @@ export default function ShortifySlide({
 
                                         <video
                                              controls
-                                             muted
-                                             loop
                                              playsInline
                                              className="aspect-video w-full bg-black object-cover"
                                         >
