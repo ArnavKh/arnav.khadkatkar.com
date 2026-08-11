@@ -1,12 +1,71 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import type { Project } from "../../content/types";
 import GithubIcon from "../../assets/GitHubLogo.png";
+
+type Sentiment = "positive" | "neutral" | "negative";
+
+const sentimentData: Record<
+     Sentiment,
+     {
+          emoji: string;
+          label: string;
+          description: string;
+          values: {
+               positive: number;
+               neutral: number;
+               negative: number;
+          };
+     }
+> = {
+     positive: {
+          emoji: "😊",
+          label: "Positive",
+          description:
+               "Audience reactions are predominantly positive.",
+          values: {
+               positive: 78,
+               neutral: 15,
+               negative: 7,
+          },
+     },
+
+     neutral: {
+          emoji: "😐",
+          label: "Neutral",
+          description:
+               "Audience reactions show a balanced response.",
+          values: {
+               positive: 42,
+               neutral: 44,
+               negative: 14,
+          },
+     },
+
+     negative: {
+          emoji: "😡",
+          label: "Negative",
+          description:
+               "Negative reactions are more prominent in this sample.",
+          values: {
+               positive: 18,
+               neutral: 24,
+               negative: 58,
+          },
+     },
+};
 
 export default function ShortifySlide({
      project,
 }: {
      project: Project;
 }) {
+     const [selectedSentiment, setSelectedSentiment] =
+          useState<Sentiment>("positive");
+
+     const selectedData =
+          sentimentData[selectedSentiment];
+
      return (
           <section
                id={project.id}
@@ -16,10 +75,11 @@ export default function ShortifySlide({
                {/* Pink Brand Background */}
 
                <div className="pointer-events-none absolute inset-0 hidden lg:grid lg:grid-cols-2">
+
                     {/* Left 50% */}
 
                     <div className="bg-linear-to-br from-[#f54b9a] via-[#f95f8b] to-[#ff7377]" />
-                    
+
                     <div
                          className="absolute inset-0 bg-repeat opacity-100"
                          style={{
@@ -30,10 +90,8 @@ export default function ShortifySlide({
 
                     {/* Right 50% */}
 
-                    <div className="relative overflow-hidden bg-[#111111]">
+                    <div className="relative overflow-hidden bg-[#111111]" />
 
-
-                    </div>
                </div>
 
                {/* Right Side Ambient Glow */}
@@ -49,10 +107,6 @@ export default function ShortifySlide({
                          {/* LEFT — Brand */}
 
                          <div className="relative min-h-[600px] overflow-hidden px-8 py-12 lg:px-12">
-
-                              {/* Doodle Background */}
-
-
 
                               <div className="relative z-10 flex h-full flex-col">
 
@@ -174,6 +228,8 @@ export default function ShortifySlide({
 
                          <div className="relative flex min-h-[600px] items-center justify-center overflow-hidden border-t border-white/10 bg-[#111111] px-6 py-12 lg:border-l lg:border-t-0 lg:px-12">
 
+                              {/* Doodles */}
+
                               <div
                                    className="pointer-events-none absolute inset-0 bg-repeat opacity-20"
                                    style={{
@@ -181,6 +237,7 @@ export default function ShortifySlide({
                                              "url('/projects/shortify/DoodleGraphic.svg')",
                                    }}
                               />
+
                               {/* Product Heading */}
 
                               <div className="absolute left-8 top-8 lg:left-12 lg:top-10">
@@ -195,7 +252,7 @@ export default function ShortifySlide({
 
                               </div>
 
-                              {/* Video Window */}
+                              {/* Product Content */}
 
                               <motion.div
                                    initial={{
@@ -214,6 +271,8 @@ export default function ShortifySlide({
                                    }}
                                    className="relative mt-10 w-full max-w-3xl"
                               >
+
+                                   {/* Video Window */}
 
                                    <div className="overflow-hidden rounded-2xl border border-white/10 bg-black shadow-[0_30px_100px_rgba(0,0,0,0.5)]">
 
@@ -256,26 +315,139 @@ export default function ShortifySlide({
 
                                    </div>
 
-                                   {/* Screenshot Strip */}
+                                   {/* Sentiment Analytics */}
 
-                                   <div className="mt-4 grid grid-cols-2 gap-4">
+                                   <div className="mt-4 rounded-2xl border border-white/10 bg-[#181818]/90 p-5 backdrop-blur-xl">
 
-                                        <div className="group overflow-hidden rounded-xl border border-white/10 bg-black">
+                                        <div className="flex items-center justify-between">
+                                             <div>
+                                                  <div className="text-sm font-medium">
+                                                       Audience Sentiment
+                                                  </div>
+                                             </div>
+                                        </div>
 
-                                             <img
-                                                  src="/images/projects/shortify/feed.png"
-                                                  alt="Shortify feed"
-                                                  className="h-36 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                             />
+                                        {/* Emoji Selector */}
+
+                                        <div className="mt-5 flex items-center gap-3">
+
+                                             {(
+                                                  Object.entries(
+                                                       sentimentData
+                                                  ) as [
+                                                       Sentiment,
+                                                       (typeof sentimentData)[Sentiment]
+                                                  ][]
+                                             ).map(
+                                                  ([
+                                                       sentiment,
+                                                       data,
+                                                  ]) => {
+                                                       const isSelected =
+                                                            selectedSentiment ===
+                                                            sentiment;
+
+                                                       return (
+                                                            <motion.button
+                                                                 key={
+                                                                      sentiment
+                                                                 }
+                                                                 type="button"
+                                                                 onClick={() =>
+                                                                      setSelectedSentiment(
+                                                                           sentiment
+                                                                      )
+                                                                 }
+                                                                 whileHover={{
+                                                                      scale: 1.08,
+                                                                 }}
+                                                                 whileTap={{
+                                                                      scale: 0.94,
+                                                                 }}
+                                                                 animate={{
+                                                                      y: isSelected
+                                                                           ? -4
+                                                                           : 0,
+                                                                 }}
+                                                                 className={`flex h-12 w-12 items-center justify-center rounded-xl border text-2xl transition-all ${isSelected
+                                                                      ? "border-pink-400/50 bg-pink-500/15 shadow-[0_0_25px_rgba(236,72,153,0.2)]"
+                                                                      : "border-white/10 bg-white/5 opacity-50 hover:opacity-100"
+                                                                      }`}
+                                                                 aria-label={`Show ${data.label.toLowerCase()} sentiment`}
+                                                            >
+                                                                 {
+                                                                      data.emoji
+                                                                 }
+                                                            </motion.button>
+                                                       );
+                                                  }
+                                             )}
 
                                         </div>
 
-                                        <div className="group overflow-hidden rounded-xl border border-white/10 bg-black">
+                                        {/* Selected Sentiment */}
 
-                                             <img
-                                                  src="/images/projects/shortify/analytics.png"
-                                                  alt="Shortify analytics"
-                                                  className="h-36 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                        <div className="mt-5 flex items-center gap-3">
+
+                                             <div className="text-3xl">
+                                                  {
+                                                       selectedData.emoji
+                                                  }
+                                             </div>
+
+                                             <div>
+
+                                                  <div className="font-medium">
+                                                       {
+                                                            selectedData.label
+                                                       }
+                                                  </div>
+
+                                                  <div className="text-xs text-white/40">
+                                                       {
+                                                            selectedData.description
+                                                       }
+                                                  </div>
+
+                                             </div>
+
+                                        </div>
+
+                                        {/* Chart */}
+
+                                        <div className="mt-6 space-y-4">
+
+                                             <SentimentBar
+                                                  label="Positive"
+                                                  value={
+                                                       selectedData
+                                                            .values
+                                                            .positive
+                                                  }
+                                                  className="bg-green-400"
+                                                  textClassName="text-green-400"
+                                             />
+
+                                             <SentimentBar
+                                                  label="Neutral"
+                                                  value={
+                                                       selectedData
+                                                            .values
+                                                            .neutral
+                                                  }
+                                                  className="bg-orange-400"
+                                                  textClassName="text-orange-400"
+                                             />
+
+                                             <SentimentBar
+                                                  label="Negative"
+                                                  value={
+                                                       selectedData
+                                                            .values
+                                                            .negative
+                                                  }
+                                                  className="bg-red-400"
+                                                  textClassName="text-red-400"
                                              />
 
                                         </div>
@@ -303,5 +475,53 @@ export default function ShortifySlide({
                </div>
 
           </section>
+     );
+}
+
+function SentimentBar({
+     label,
+     value,
+     className,
+     textClassName,
+}: {
+     label: string;
+     value: number;
+     className: string;
+     textClassName: string;
+}) {
+     return (
+          <div>
+
+               <div className="mb-2 flex items-center justify-between text-xs">
+
+                    <span className="text-white/55">
+                         {label}
+                    </span>
+
+                    <span
+                         className={`font-medium ${textClassName}`}
+                    >
+                         {value}%
+                    </span>
+
+               </div>
+
+               <div className="h-2 overflow-hidden rounded-full bg-white/5">
+
+                    <motion.div
+                         initial={false}
+                         animate={{
+                              width: `${value}%`,
+                         }}
+                         transition={{
+                              duration: 0.5,
+                              ease: "easeOut",
+                         }}
+                         className={`h-full rounded-full ${className}`}
+                    />
+
+               </div>
+
+          </div>
      );
 }
