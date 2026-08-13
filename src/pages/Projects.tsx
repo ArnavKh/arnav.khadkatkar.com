@@ -44,7 +44,7 @@ export default function Projects() {
           to="/"
           className="text-cyan-400 transition-colors hover:text-cyan-300"
         >
-          ← Back
+          ← Arnav Khadkatkar
         </Link>
       </div>
 

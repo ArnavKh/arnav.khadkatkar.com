@@ -6,7 +6,7 @@ export default function Timeline() {
     <div className="min-h-screen bg-slate-950 text-white">
       <div className="mx-auto max-w-7xl px-8 py-8">
         <Link to="/" className="mb-6 inline-block text-cyan-400 hover:text-cyan-300">
-          ← Back
+          ← Arnav Khadkatkar
         </Link>
 
         <motion.div
